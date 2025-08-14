@@ -1,0 +1,47 @@
+### POST request to Projects API
+POST http://localhost:8000/api/projects
+Content-Type: application/json
+
+{
+    "name": "PRJ-1234",
+    "description": "Sample project description",
+    "company_name": "ABC Company",
+    "authorized_person": "John Doe",
+    "machine_info": "CNC Machine Model X",
+    "project_type": "Repair",
+    "price": 5000.00,
+    "notes": "Machine needs repair and maintenance",
+    "done_jobs": "Initial inspection completed"
+}
+
+###
+
+GET http://localhost:8000/api/projects
+
+###
+
+GET http://localhost:8000/api/projects/1
+
+###
+
+PUT http://localhost:8000/api/projects/1
+Content-Type: application/json
+
+{
+    "description": "Updated project description",
+    "price": 6000.00,
+    "status": "in_progress",
+    "done_jobs": "Initial inspection and parts replacement completed"
+}
+
+###
+
+DELETE http://localhost:8000/api/projects/1
+
+###
+
+PUT http://localhost:8000/api/projects/1/approve
+
+###
+
+PUT http://localhost:8000/api/projects/1/reject

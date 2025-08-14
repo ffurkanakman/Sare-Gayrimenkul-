@@ -1,0 +1,22 @@
+@mixin icon_mask($name) {
+    &:before {
+        //mask-image: url("../../public/svg/#{$name}.svg");
+        //--webkit-mask-image: url("../../public/svg/#{$name}.svg");
+        mask-image: url("../../public/svg/#{$name}.svg");
+        --webkit-mask-image: url("../../public/svg/#{$name}.svg");
+    }
+}
+
+@mixin icon_color($color) {
+    i:before {
+        background-color: $color;
+    }
+}
+
+@mixin icon_size($size) {
+    i:before {
+        width: $size !important;
+        height: $size !important;
+    }
+}
+

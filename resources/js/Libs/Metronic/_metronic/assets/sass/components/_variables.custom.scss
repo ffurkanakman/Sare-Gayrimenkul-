@@ -1,0 +1,202 @@
+//
+// To make future updates easier consider overriding the global variables from _variables.bootstrap.scss and _variables.custom.scss for current demo in this file.
+// Note that this file is included first and variables defined in _variables.bootstrap.scss and _variables.custom.scss
+// are not accessible in this file but you can override any global variable as shown below:
+//
+
+
+// Define base colors that are needed before they're used
+$white: #ffffff !default;
+$black: #000000 !default;
+
+// Define gray colors needed for theme-text-colors map
+$gray-100: #F9F9F9 !default;
+$gray-200: #F1F1F4 !default;
+$gray-300: #DBDFE9 !default;
+$gray-400: #C4CADA !default;
+$gray-500: #99A1B7 !default;
+$gray-600: #78829D !default;
+$gray-700: #4B5675 !default;
+$gray-800: #252F4A !default;
+$gray-900: #071437 !default;
+
+// Define text-muted
+$text-muted: $gray-500 !default;
+
+// Define other theme colors needed for theme-text-colors map
+$secondary: $gray-200 !default;
+$secondary-active: $gray-400 !default;
+$secondary-light: #F9F9F9 !default;
+$secondary-clarity: rgba(#F9F9F9, 0.2) !default;
+$secondary-inverse: $gray-800 !default;
+
+$light: $gray-100 !default;
+$light-active: $gray-200 !default;
+$light-light: #ffffff !default;
+$light-clarity: rgba($white, 0.2) !default;
+$light-inverse: $gray-800 !default;
+
+$info: #7239EA !default;
+$info-active: #5014D0 !default;
+$info-light: #F8F5FF !default;
+$info-clarity: rgba(#7239EA, 0.2) !default;
+$info-inverse: $white !default;
+
+$warning: #F6C000 !default;
+$warning-active: #DEAD00 !default;
+$warning-light: #FFF8DD !default;
+$warning-clarity: rgba(#F6C000, 0.2) !default;
+$warning-inverse: $white !default;
+
+$danger: #F8285A !default;
+$danger-active: #D81A48 !default;
+$danger-light: #FFEEF3 !default;
+$danger-clarity: rgba(#F8285A, 0.2) !default;
+$danger-inverse: $white !default;
+
+$dark: #1E2129 !default;
+$dark-active: #111318 !default;
+$dark-light: #F9F9F9 !default;
+$dark-clarity: rgba(#1E2129, 0.2) !default;
+$dark-inverse: $white !default;
+
+// Theme colors
+// Primary colors
+$success:						#1B84FF !default;
+$success-active:				#056EE9 !default;
+$success-light: 				#E9F3FF !default;
+$success-clarity: 				rgba(#1B84FF, 0.2) !default;
+$success-inverse:               $white !default;
+
+$success-dark:						#006AE6 !default;
+$success-active-dark:				#107EFF !default;
+$success-light-dark: 				#172331 !default;
+$success-clarity-dark: 				rgba(#006AE6, 0.2) !default;
+
+// Success colors
+$primary: 						#17C653 !default;
+$primary-active: 				#04B440 !default;
+$primary-light: 				#DFFFEA !default;
+$primary-clarity: 				rgba(#17C653, 0.2) !default;
+$primary-inverse: 				$white !default;
+
+$primary-dark: 						#00A261 !default;
+$primary-active-dark: 				#01BF73 !default;
+$primary-light-dark: 				#1F212A !default;
+$primary-clarity-dark: 				rgba(#00A261, 0.2) !default;
+
+// FSH Primary colors
+$fsh-primary: 					#d42727 !default;
+$fsh-primary-active: 			#b01f1f !default;
+$fsh-primary-light: 			#fae6e6 !default;
+$fsh-primary-clarity: 			rgba(#d42727, 0.2) !default;
+$fsh-primary-inverse: 			$white !default;
+
+$fsh-primary-dark: 				#c02020 !default;
+$fsh-primary-active-dark: 		#e53030 !default;
+$fsh-primary-light-dark: 		#2a1f1f !default;
+$fsh-primary-clarity-dark: 		rgba(#c02020, 0.2) !default;
+$fsh-primary-inverse-dark: 		$white !default;
+
+// Override component hover variables to use fsh-primary
+$component-hover-color:         $fsh-primary !default;
+$component-hover-bg:            $fsh-primary-light !default;
+
+// Override menu-link variables to use fsh-primary
+$menu-link-color-hover:         $fsh-primary !default;
+$menu-link-color-show:          $fsh-primary !default;
+$menu-link-color-here:          $fsh-primary !default;
+$menu-link-color-active:        $fsh-primary !default;
+$menu-link-bg-color-hover:      $fsh-primary-light !default;
+$menu-link-bg-color-show:       $fsh-primary-light !default;
+$menu-link-bg-color-here:       $fsh-primary-light !default;
+$menu-link-bg-color-active:     $fsh-primary-light !default;
+
+// Add fsh-primary to theme colors
+$theme-colors: (
+	"light": $light,
+	"primary": $primary,
+	"secondary": $secondary,
+	"success": $success,
+	"info": $info,
+	"warning": $warning,
+	"danger": $danger,
+	"dark": $dark,
+	"fsh-primary": $fsh-primary
+) !default;
+
+// Add fsh-primary to theme active colors
+$theme-active-colors: (
+	"primary": $primary-active,
+	"secondary": $secondary-active,
+	"light": $light-active,
+	"success": $success-active,
+	"info": $info-active,
+	"warning": $warning-active,
+	"danger": $danger-active,
+	"dark": $dark-active,
+	"fsh-primary": $fsh-primary-active
+) !default;
+
+// Add fsh-primary to theme light colors
+$theme-light-colors: (
+	"primary": $primary-light,
+	"secondary": $secondary-light,
+	"success": $success-light,
+	"info": $info-light,
+	"warning": $warning-light,
+	"danger": $danger-light,
+	"dark": $dark-light,
+	"light": $light-light,
+	"fsh-primary": $fsh-primary-light
+) !default;
+
+// Add fsh-primary to theme inverse colors
+$theme-inverse-colors: (
+	"primary": $primary-inverse,
+	"secondary": $secondary-inverse,
+	"light": $light-inverse,
+	"success": $success-inverse,
+	"info": $info-inverse,
+	"warning": $warning-inverse,
+	"danger": $danger-inverse,
+	"dark": $dark-inverse,
+	"fsh-primary": $fsh-primary-inverse
+) !default;
+
+// Add fsh-primary to theme clarity colors
+$theme-clarity-colors: (
+	"primary": $primary-clarity,
+	"secondary": $secondary-clarity,
+	"success": $success-clarity,
+	"info": $info-clarity,
+	"warning": $warning-clarity,
+	"danger": $danger-clarity,
+	"dark": $dark-clarity,
+	"light": $light-clarity,
+	"fsh-primary": $fsh-primary-clarity
+) !default;
+
+// Add fsh-primary to theme-text-colors map
+$theme-text-colors: (
+	"white":   $white,
+	"primary": $primary,
+	"secondary":  $secondary,
+	"light":   $light,
+	"success": $success,
+	"info":    $info,
+	"warning": $warning,
+	"danger":  $danger,
+	"dark":    $dark,
+	"muted":   $text-muted,
+	"gray-100":   $gray-100,
+	"gray-200":   $gray-200,
+	"gray-300":   $gray-300,
+	"gray-400":   $gray-400,
+	"gray-500":   $gray-500,
+	"gray-600":   $gray-600,
+	"gray-700":   $gray-700,
+	"gray-800":   $gray-800,
+	"gray-900":   $gray-900,
+	"fsh-primary": $fsh-primary
+) !default;

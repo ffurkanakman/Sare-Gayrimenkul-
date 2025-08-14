@@ -1,0 +1,172 @@
+// FSH Primary Menu Theme
+// This file defines menu theme classes for the fsh-primary color
+
+// FSH Primary color states
+.menu-hover-fsh-primary {
+    .menu-item {
+        @include menu-link-hover-state( var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), null );
+    }
+}
+
+.menu-show-fsh-primary {
+    .menu-item {
+        @include menu-link-show-state( var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), null );
+    }
+}
+
+.menu-here-fsh-primary {
+    .menu-item {
+        @include menu-link-here-state( var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), null );
+    }
+}
+
+.menu-active-fsh-primary {
+    .menu-item {
+        @include menu-link-active-state( var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), null );
+    }
+}
+
+.menu-state-fsh-primary {
+    .menu-item {
+        @include menu-link-hover-state( var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), null );
+        @include menu-link-show-state( var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), null );
+        @include menu-link-here-state( var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), null );
+        @include menu-link-active-state( var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), var(--#{$prefix}fsh-primary), null );
+    }
+}
+
+// FSH Primary title color states
+.menu-hover-title-fsh-primary {
+    .menu-item {
+        @include menu-link-hover-state( var(--#{$prefix}fsh-primary), null, null, null, null );
+    }
+}
+
+.menu-here-title-fsh-primary {
+    .menu-item {
+        @include menu-link-here-state( var(--#{$prefix}fsh-primary), null, null, null, null );
+    }
+}
+
+.menu-show-title-fsh-primary {
+    .menu-item {
+        @include menu-link-show-state( var(--#{$prefix}fsh-primary), null, null, null, null );
+    }
+}
+
+.menu-active-title-fsh-primary {
+    .menu-item {
+        @include menu-link-active-state( var(--#{$prefix}fsh-primary), null, null, null, null );
+    }
+}
+
+.menu-state-title-fsh-primary {
+    .menu-item {
+        @include menu-link-hover-state( var(--#{$prefix}fsh-primary), null, null, null, null );
+        @include menu-link-here-state( var(--#{$prefix}fsh-primary), null, null, null, null );
+        @include menu-link-show-state( var(--#{$prefix}fsh-primary), null, null, null, null );
+        @include menu-link-active-state( var(--#{$prefix}fsh-primary), null, null, null, null );
+    }
+}
+
+// FSH Primary icon color states
+.menu-hover-icon-fsh-primary {
+    .menu-item {
+        @include menu-link-hover-state( null, var(--#{$prefix}fsh-primary), null, null, null );
+    }
+}
+
+.menu-here-icon-fsh-primary {
+    .menu-item {
+        @include menu-link-here-state( null, var(--#{$prefix}fsh-primary), null, null, null );
+    }
+}
+
+.menu-show-icon-fsh-primary {
+    .menu-item {
+        @include menu-link-show-state( null, var(--#{$prefix}fsh-primary), null, null, null );
+    }
+}
+
+.menu-active-icon-fsh-primary {
+    .menu-item {
+        @include menu-link-active-state( null, var(--#{$prefix}fsh-primary), null, null, null );
+    }
+}
+
+.menu-state-icon-fsh-primary {
+    .menu-item {
+        @include menu-link-hover-state( null, var(--#{$prefix}fsh-primary), null, null, null );
+        @include menu-link-here-state( null, var(--#{$prefix}fsh-primary), null, null, null );
+        @include menu-link-show-state( null, var(--#{$prefix}fsh-primary), null, null, null );
+        @include menu-link-active-state( null, var(--#{$prefix}fsh-primary), null, null, null );
+    }
+}
+
+// FSH Primary bullet color states
+.menu-hover-bullet-fsh-primary {
+    .menu-item {
+        @include menu-link-hover-state( null, null, var(--#{$prefix}fsh-primary), null, null );
+    }
+}
+
+.menu-show-bullet-fsh-primary {
+    .menu-item {
+        @include menu-link-show-state( null, null, var(--#{$prefix}fsh-primary), null, null );
+    }
+}
+
+.menu-here-bullet-fsh-primary {
+    .menu-item {
+        @include menu-link-here-state( null, null, var(--#{$prefix}fsh-primary), null, null );
+    }
+}
+
+.menu-active-bullet-fsh-primary {
+    .menu-item {
+        @include menu-link-active-state( null, null, var(--#{$prefix}fsh-primary), null, null );
+    }
+}
+
+.menu-state-bullet-fsh-primary {
+    .menu-item {
+        @include menu-link-hover-state( null, null, var(--#{$prefix}fsh-primary), null, null );
+        @include menu-link-here-state( null, null, var(--#{$prefix}fsh-primary), null, null );
+        @include menu-link-show-state( null, null, var(--#{$prefix}fsh-primary), null, null );
+        @include menu-link-active-state( null, null, var(--#{$prefix}fsh-primary), null, null );
+    }
+}
+
+// FSH Primary arrow color states
+.menu-hover-arrow-fsh-primary {
+    .menu-item {
+        @include menu-link-hover-state( null, null, null, var(--#{$prefix}fsh-primary), null );
+    }
+}
+
+.menu-here-arrow-fsh-primary {
+    .menu-item {
+        @include menu-link-here-state( null, null, null, var(--#{$prefix}fsh-primary), null );
+    }
+}
+
+.menu-show-arrow-fsh-primary {
+    .menu-item {
+        @include menu-link-show-state( null, null, null, var(--#{$prefix}fsh-primary), null );
+    }
+}
+
+.menu-active-arrow-fsh-primary {
+    .menu-item {
+        @include menu-link-active-state( null, null, null, var(--#{$prefix}fsh-primary), null );
+    }
+}
+
+.menu-state-arrow-fsh-primary {
+    .menu-item {
+        @include menu-link-hover-state( null, null, null, var(--#{$prefix}fsh-primary), null );
+        @include menu-link-here-state( null, null, null, var(--#{$prefix}fsh-primary), null );
+        @include menu-link-show-state( null, null, null, var(--#{$prefix}fsh-primary), null );
+        @include menu-link-active-state( null, null, null, var(--#{$prefix}fsh-primary), null );
+    }
+}

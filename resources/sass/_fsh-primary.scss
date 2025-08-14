@@ -1,0 +1,97 @@
+// FSH Primary Color Utilities
+// This file defines Bootstrap-like utility classes for the fsh-primary color
+
+// Text color
+.text-fsh-primary {
+  color: var(--bs-fsh-primary) !important;
+}
+
+// Background color
+.bg-fsh-primary {
+  background-color: var(--bs-fsh-primary) !important;
+}
+
+// Border color
+.border-fsh-primary {
+  border-color: var(--bs-fsh-primary) !important;
+}
+
+// Button styles
+.btn-fsh-primary {
+  color: var(--bs-fsh-primary-inverse);
+  background-color: var(--bs-fsh-primary);
+  border-color: var(--bs-fsh-primary);
+
+  &:hover {
+    color: var(--bs-fsh-primary-inverse);
+    background-color: var(--bs-fsh-primary-active);
+    border-color: var(--bs-fsh-primary-active);
+  }
+
+  &:focus,
+  &.focus {
+    color: var(--bs-fsh-primary-inverse);
+    background-color: var(--bs-fsh-primary-active);
+    border-color: var(--bs-fsh-primary-active);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-fsh-primary-rgb), 0.5);
+  }
+
+  &:active,
+  &.active {
+    color: var(--bs-fsh-primary-inverse);
+    background-color: var(--bs-fsh-primary-active);
+    border-color: var(--bs-fsh-primary-active);
+  }
+
+  &:disabled,
+  &.disabled {
+    color: var(--bs-fsh-primary-inverse);
+    background-color: var(--bs-fsh-primary);
+    border-color: var(--bs-fsh-primary);
+    opacity: 0.65;
+  }
+}
+
+// Outline button styles
+.btn-outline-fsh-primary {
+  color: var(--bs-fsh-primary);
+  border-color: var(--bs-fsh-primary);
+
+  &:hover {
+    color: var(--bs-fsh-primary-inverse);
+    background-color: var(--bs-fsh-primary);
+    border-color: var(--bs-fsh-primary);
+  }
+
+  &:focus,
+  &.focus {
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-fsh-primary-rgb), 0.5);
+  }
+
+  &:active,
+  &.active {
+    color: var(--bs-fsh-primary-inverse);
+    background-color: var(--bs-fsh-primary);
+    border-color: var(--bs-fsh-primary);
+  }
+
+  &:disabled,
+  &.disabled {
+    color: var(--bs-fsh-primary);
+    background-color: transparent;
+    opacity: 0.65;
+  }
+}
+
+// Light background with fsh-primary text
+.bg-light-fsh-primary {
+  background-color: var(--bs-fsh-primary-light) !important;
+}
+
+// Link styles
+a.text-fsh-primary {
+  &:hover,
+  &:focus {
+    color: var(--bs-fsh-primary-active) !important;
+  }
+}

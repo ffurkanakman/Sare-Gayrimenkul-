@@ -1,0 +1,104 @@
+@use "../variable" as *;
+
+footer {
+    background-color: #24272c;
+    padding: 1rem;
+
+    .footer-logo {
+        border-right: 0px solid rgba(0255, 255, 255, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .social-icon {
+        a {
+            transition: all 0.45s;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .icon {
+                &:before {
+                    background-color: $white;
+                }
+            }
+
+            &.inst:hover {
+                background-color: #FF005B;
+            }
+
+            &.twi:hover {
+                background-color: #000;
+            }
+
+            &.youtube:hover {
+                background-color: red;
+            }
+
+            &.fb:hover {
+                background-color: #1877f2;
+            }
+
+            &.whatsapp:hover {
+                background-color: #25D366;
+            }
+        }
+    }
+
+    .copyright {
+        padding-top: 1rem;
+        border-top: 1px solid rgba(0255, 255, 255, 0.1) !important;
+
+        p {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .footer-nav {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+
+            li {
+                padding-right: 2rem;
+                margin-right: 0.5rem;
+                position: relative;
+
+                a {
+                    color: #8d9193;
+                    font-weight: 600;
+                    transition: all 0.45s;
+                    font-size: 0.9rem;
+                }
+
+                &::after {
+                    position: absolute;
+                    top: 50%;
+                    right: 0.8rem;
+                    font-weight: 600;
+                    color: #8d9193;
+                    -webkit-transform: translateY(-50%);
+                    -ms-transform: translateY(-50%);
+                    transform: translateY(-50%);
+                    content: "/";
+                    opacity: 0.5;
+                }
+
+                &:last-child {
+                    &:after {
+                        content: none;
+                    }
+                }
+            }
+        }
+    }
+}

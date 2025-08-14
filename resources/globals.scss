@@ -1,0 +1,15 @@
+/* resources/globals.scss */
+
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Metronic core (yolunu kendi projen göre ayarla) */
+@import './js/Libs/Metronic/_metronic/assets/sass/style.scss';
+
+/* Keenicons & fonticon (Metronic ikonları) */
+@import './js/Libs/Metronic/_metronic/assets/fonticon/fonticon.css';
+@import './js/Libs/Metronic/_metronic/assets/keenicons/duotone/style.css';
+@import './js/Libs/Metronic/_metronic/assets/keenicons/outline/style.css';
+@import './js/Libs/Metronic/_metronic/assets/keenicons/solid/style.css';

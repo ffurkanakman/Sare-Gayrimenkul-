@@ -1,0 +1,341 @@
+.teklif-wrapper {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  width: 210mm;
+  margin: auto;
+  background-color: #ffffff;
+  color: #000;
+
+  .teklif-header {
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+    .logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        width: 100%;
+
+        img {
+          display: block;
+          max-height: 60px;
+        }
+    }
+
+
+
+  }
+
+  .firma-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 20px;
+
+  .firma-kolon {
+    width: 48%;
+    line-height: 1.6;
+
+    p {
+      margin: 0;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    .firma-adi {
+      color: red;
+      font-weight: bold;
+      font-size: 15px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+  }
+
+  .text-right {
+    text-align: right;
+  }
+}
+
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+
+    thead {
+      background-color: #f0f0f0;
+    }
+
+    th, td {
+      border: 1px solid #000;
+      padding: 8px;
+      text-align: left;
+      font-size: 13px;
+    }
+  }
+
+    .bottom-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 40px;
+    border-top: 2px solid #000;
+
+    .kosullar {
+        width: 55%;
+        font-size: 12px;
+        margin-top: 10px;
+
+        p {
+        margin: 4px 0;
+        line-height: 1.5;
+        }
+    }
+
+        .toplam {
+            width: 40%;
+            font-size: 13px;
+            margin-top: 10px;
+
+            p {
+            margin: 4px 0;
+            display: flex;
+            justify-content: space-between;
+            }
+
+            .genel-toplam {
+            font-weight: bold;
+            font-size: 15px;
+            margin-top: 10px;
+            color: red;
+            }
+
+            .ara-toplam{
+                border-bottom: 2px solid #000;
+                margin-bottom: 10px;
+            }
+
+            padding-left: 20px;
+        }
+    }
+
+    .imza {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+        position: relative;
+
+    &::before {
+        content: "Kaşe–İmza";
+        position: absolute;
+        top: -20px;
+        font-size: 13px;
+    }
+
+    &::after {
+        content: "";
+        display: block;
+        width: 250px;
+        height: 100px;
+        border: 1px solid #000;
+    }
+    }
+
+    .footer-info {
+        border-top: 2px solid;
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        margin-top: 30px;
+        text-align: center;
+
+    .info-block {
+        width: 32%;
+        margin-top: 10px;
+        border-right: 2px;
+
+        strong {
+          display: block;
+          margin-bottom: 5px;
+          color: #e30613;
+          font-size: 1rem;
+          font-weight: 600;
+        }
+
+        p {
+          margin: 2px 0;
+          color: #312783;
+          font-size: 0.90rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      justify-content: center; // .aa ortalanır
+      align-items: center;
+      padding: 20px;
+    }
+
+    .aa {
+      background-color: #e30613;
+      border-radius: 10px;
+      color: #fff;
+      width: 55%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .footer-mail {
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+
+    .external-button {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #908c8c;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      i{
+        color: white;
+        margin-right: 3px;
+      }
+
+      &:hover {
+        background-color: #c0000e;
+        transition: 690ms;
+      }
+    }
+
+
+
+
+
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-top: 20px;
+
+    h4 {
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .footer-bar {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+
+    a {
+      color: #000;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    span {
+      margin: 0 5px;
+    }
+  }
+}
+
+.table-header{
+color: #db0d1e;
+
+}
+
+
+.teklif-tables {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+
+  th {
+    background-color: #e63946;
+    color: #fff;
+    padding: 0.6rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+
+    // Başlık hücreleri ortalansın istiyorsan:
+    &.center {
+      text-align: center;
+    }
+  }
+
+  td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    vertical-align: top;
+  }
+
+  // Alternatif satır renklendirme
+  tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+
+  // Responsive için
+  @media (max-width: 768px) {
+    th, td {
+      font-size: 0.85rem;
+      padding: 0.4rem;
+    }
+  }
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+
+  .gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+
+      img {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
