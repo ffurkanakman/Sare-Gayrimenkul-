@@ -7,19 +7,10 @@ import Login from "../../Pages/Auth/Login";
 import Register from "../../Pages/Auth/Register";
 import ForgotPassword from "../../Pages/Auth/ForgotPassword";
 import ResetPassword from "../../Pages/Auth/ResetPassword";
-import Home from "../../Pages/Ui/Home/ServisList";
-import Projeler from "../../Pages/Ui/Projeler";
-import YeniProje from "../../Pages/Ui/YeniProje";
-import ProjeGuncelle from "../../Pages/Ui/ProjeGuncelle";
-import ProjeGoruntule from "../../Pages/Ui/ProjeGoruntule";
 import Kullanicilar from "../../Pages/Ui/Kullanicilar";
 import KullaniciGoruntule from "../../Pages/Ui/KullaniciGoruntule";
 import KullaniciDuzenle from "../../Pages/Ui/KullaniciDuzenle";
 import YeniKullanici from "../../Pages/Ui/YeniKullanici";
-import Musteriler from "../../Pages/Ui/Musteriler";
-import YeniMusteri from "../../Pages/Ui/YeniMusteri";
-import MusteriGoruntule from "../../Pages/Ui/MusteriGoruntule";
-import MusteriDuzenle from "../../Pages/Ui/MusteriDuzenle";
 import ProtectedRoute from "../../Components/Auth/ProtectedRoute";
 
 
@@ -53,39 +44,6 @@ const MainRouter = () => {
                         index
                         element={
                             <ProtectedRoute>
-                                <Home />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path={ROUTES.UI.PROJECTS}
-                        element={
-                            <ProtectedRoute>
-                                <Projeler />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path={ROUTES.UI.NEW_PROJECT}
-                        element={
-                            <ProtectedRoute>
-                                <YeniProje />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path={ROUTES.UI.EDIT_PROJECT}
-                        element={
-                            <ProtectedRoute>
-                                <ProjeGuncelle />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path={ROUTES.UI.VIEW_PROJECT}
-                        element={
-                            <ProtectedRoute>
-                                <ProjeGoruntule />
                             </ProtectedRoute>
                         }
                     />
@@ -121,47 +79,6 @@ const MainRouter = () => {
                             </ProtectedRoute>
                         }
                     />
-                    <Route
-                        path={ROUTES.UI.CLIENTS}
-                        element={
-                            <ProtectedRoute>
-                                <Musteriler />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path={ROUTES.UI.NEW_CLIENT}
-                        element={
-                            <ProtectedRoute>
-                                <YeniMusteri />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path={ROUTES.UI.VIEW_CLIENT}
-                        element={
-                            <ProtectedRoute>
-                                <MusteriGoruntule />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
-                        path={ROUTES.UI.EDIT_CLIENT}
-                        element={
-                            <ProtectedRoute>
-                                <MusteriDuzenle />
-                            </ProtectedRoute>
-                        }
-                    />
-
-
-
-
-
-
-
-
-
                 </Route>
 
                 <Route path={`${ROUTES.UI.ERROR}/*`} element={<ErrorsPage />} />

@@ -6,6 +6,7 @@ import { KTCard, KTCardBody } from '../../Libs/Metronic/_metronic/helpers';
 import { Link } from 'react-router-dom';
 import { useUser } from '../../ServerSide/Hooks/useUser.jsx';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';                 // <-- eklendi
 
 const usersBreadCrumbs = [
     {
@@ -28,7 +29,7 @@ const UsersPage = () => {
     const [itemsPerPage] = useState(5);
 
     // useUser hook'unu kullan
-    const { users, loading, error, setUser, updateUser } = useUser();
+    const { users, loading, error, setUser, updateUser, deleteUser } = useUser();
 
     // Component mount olduğunda users getir
     useEffect(() => {
@@ -45,9 +46,54 @@ const UsersPage = () => {
 
     // Change page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
     // Calculate total pages
     const totalPages = users ? Math.ceil(users.length / itemsPerPage) : 0;
+
+    // --- SİLME: SweetAlert2 ile onay ---
+    const handleDelete = async (id) => {
+        const wasLastOnPage = currentUsers.length === 1 && currentPage > 1;
+
+        const result = await Swal.fire({
+            title: 'Emin misiniz?',
+            text: 'Bu kullanıcı kalıcı olarak silinecek.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Evet, sil',
+            cancelButtonText: 'Vazgeç',
+            reverseButtons: true,
+            confirmButtonColor: '#d33'
+        });
+
+        if (!result.isConfirmed) return;
+
+        try {
+            await Swal.fire({
+                title: 'Siliniyor...',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            await deleteUser(id);
+
+            if (wasLastOnPage) setCurrentPage((p) => p - 1);
+
+            await Swal.fire({
+                icon: 'success',
+                title: 'Silindi',
+                timer: 1200,
+                showConfirmButton: false
+            });
+        } catch (e) {
+            await Swal.fire({
+                icon: 'error',
+                title: 'Silinemedi',
+                text: e?.message ?? 'Bilinmeyen bir hata oluştu'
+            });
+        } finally {
+            Swal.close();
+        }
+    };
+    // --- SİLME son ---
 
     // Loading durumunu göster
     if (loading) {
@@ -76,8 +122,8 @@ const UsersPage = () => {
                     <h3 className='card-title align-items-start flex-column'>
                         <span className='card-label fw-bold fs-3 mb-1'>Kullanıcı Listesi</span>
                         <span className='text-muted mt-1 fw-semibold fs-7'>
-                            Toplam {users ? users.length : 0} kullanıcı
-                        </span>
+              Toplam {users ? users.length : 0} kullanıcı
+            </span>
                     </h3>
                     <div className='card-toolbar'>
                         <Link to={ROUTES.UI.NEW_USER} className='btn btn-sm btn-primary'>
@@ -105,43 +151,43 @@ const UsersPage = () => {
                             {currentUsers && currentUsers.map((user) => (
                                 <tr key={user.id}>
                                     <td>
-                                        <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
-                                            {user.id}
-                                        </span>
+                      <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
+                        {user.id}
+                      </span>
                                     </td>
                                     <td>
                                         <div className='d-flex align-items-center'>
                                             <div className='d-flex justify-content-start flex-column'>
-                                                <span className='text-dark fw-bold text-hover-primary fs-6'>
-                                                    {user.name}
-                                                </span>
+                          <span className='text-dark fw-bold text-hover-primary fs-6'>
+                            {user.name}
+                          </span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
-                                            {user.surname}
-                                        </span>
+                      <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
+                        {user.surname}
+                      </span>
                                     </td>
                                     <td>
-                                        <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
-                                            {user.email}
-                                        </span>
+                      <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
+                        {user.email}
+                      </span>
                                     </td>
                                     <td>
-                                        <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
-                                            {user.phone_number}
-                                        </span>
+                      <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
+                        {user.phone_number}
+                      </span>
                                     </td>
                                     <td>
-                                        <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
-                                            {user.role || 'Kullanıcı'}
-                                        </span>
+                      <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
+                        {user.role || 'Kullanıcı'}
+                      </span>
                                     </td>
                                     <td>
-                                        <span className={`badge ${user.status === 'active' ? 'badge-light-success' : 'badge-light-danger'}`}>
-                                            {user.status === 'active' ? 'Aktif' : 'Pasif'}
-                                        </span>
+                      <span className={`badge ${user.status === 'active' ? 'badge-light-success' : 'badge-light-danger'}`}>
+                        {user.status === 'active' ? 'Aktif' : 'Pasif'}
+                      </span>
                                     </td>
                                     <td className='text-end'>
                                         <div className="d-flex justify-content-end">
@@ -157,6 +203,15 @@ const UsersPage = () => {
                                             >
                                                 <i className='bi bi-pencil fs-4'></i>
                                             </Link>
+                                            {/* Sil butonu */}
+                                            <button
+                                                type='button'
+                                                onClick={() => handleDelete(user.id)}
+                                                className='btn btn-icon btn-bg-light btn-active-color-danger btn-sm'
+                                                title='Sil'
+                                            >
+                                                <i className='bi bi-trash fs-4'></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>

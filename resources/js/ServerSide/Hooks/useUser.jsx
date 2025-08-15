@@ -98,6 +98,23 @@ export const useUser = () => {
         }
     };
 
+    const deleteUser = async (id) => {
+        try {
+            dispatch(setLoading(true));
+
+            const response = await apiService.delete(`${API_CONFIG.ENDPOINTS.USER.USER}/${id}`);
+
+            return response.data;
+
+        } catch (error) {
+            dispatch(setError(error.message));
+            toast.error('Kullanıcı Silinemedi.');
+            throw error;
+        }finally {
+            dispatch(setLoading(false));
+        }
+    };
+
     return {
         users,
         currentUser,
@@ -106,7 +123,8 @@ export const useUser = () => {
         setUser,
         getUserById,
         updateUser,
-        createUser
+        createUser,
+        deleteUser
     };
 };
 

@@ -25,15 +25,6 @@ const AsideFooter = () => {
 
                 {/* Menü içeriği (kendi içinde <a> barındırır, dıştan sarmalama yok) */}
                 <QuickLinks backgroundUrl='/media/misc/pattern-1.jpg' />
-
-                {/* İstiyorsan ayrı bir kısa yol butonu */}
-                <Link
-                    to='/AraclarListesi'
-                    className='btn btn-icon btn-color-gray-500 btn-active-color-fsh-primary ms-2'
-                    title='Araçlar Listesi'
-                >
-                    <KTIcon iconName='car' className='fs-2 text-lg-1' />
-                </Link>
             </div>
 
             {/* Activities */}
