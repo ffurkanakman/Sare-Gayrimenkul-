@@ -6,7 +6,7 @@ import { KTCard, KTCardBody } from '../../Libs/Metronic/_metronic/helpers';
 import { Link } from 'react-router-dom';
 import { useUser } from '../../ServerSide/Hooks/useUser.jsx';
 import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';                 // <-- eklendi
+import Swal from 'sweetalert2';
 
 const usersBreadCrumbs = [
     {
@@ -123,7 +123,7 @@ const UsersPage = () => {
                         <span className='card-label fw-bold fs-3 mb-1'>Kullanıcı Listesi</span>
                         <span className='text-muted mt-1 fw-semibold fs-7'>
               Toplam {users ? users.length : 0} kullanıcı
-            </span>
+                     </span>
                     </h3>
                     <div className='card-toolbar'>
                         <Link to={ROUTES.UI.NEW_USER} className='btn btn-sm btn-primary'>

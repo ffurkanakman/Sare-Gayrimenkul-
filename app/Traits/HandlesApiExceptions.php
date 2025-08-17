@@ -68,12 +68,13 @@ trait HandlesApiExceptions
     /**
      * Başarılı response üretir (Controller ile imza uyumlu)
      */
-    protected function successResponse($data, int $status = Response::HTTP_OK): \Illuminate\Http\JsonResponse
+    protected function successResponse($data, $paginationData = null, int $status = Response::HTTP_OK): \Illuminate\Http\JsonResponse
     {
         return response()->json([
             'status' => true,
             'message' => 'İşlem başarılı',
             'data' => $data,
+            'pagination' => $paginationData,
         ], $status);
     }
 

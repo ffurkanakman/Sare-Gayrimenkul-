@@ -11,6 +11,7 @@ import Kullanicilar from "../../Pages/Ui/Kullanicilar";
 import KullaniciGoruntule from "../../Pages/Ui/KullaniciGoruntule";
 import KullaniciDuzenle from "../../Pages/Ui/KullaniciDuzenle";
 import YeniKullanici from "../../Pages/Ui/YeniKullanici";
+import Customers from "../../Pages/Ui/Customers/index";
 import ProtectedRoute from "../../Components/Auth/ProtectedRoute";
 
 
@@ -76,6 +77,14 @@ const MainRouter = () => {
                         element={
                             <ProtectedRoute>
                                 <YeniKullanici />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path={ROUTES.UI.CLIENTS}
+                        element={
+                            <ProtectedRoute>
+                                <Customers />
                             </ProtectedRoute>
                         }
                     />

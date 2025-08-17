@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use App\Modules\Customers\Providers\CustomersServiceProvider;
 
 use App\Modules\User\Providers\UserServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -14,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+    // Register services
+        $this->app->register(CustomersServiceProvider::class);
         // Register services
         $this->app->register(UserServiceProvider::class);
     }

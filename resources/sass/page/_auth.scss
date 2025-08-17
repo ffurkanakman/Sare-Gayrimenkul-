@@ -72,7 +72,7 @@
 
             .error-messages {
                 font-size: 0.8rem;
-                color: #ef4444;
+                color: #6983a8;
                 font-weight: 500;
                 margin-top: 0.25rem;
             }
@@ -80,7 +80,7 @@
             .submit-button {
                 width: 100%;
                 padding: 0.75rem;
-                background-color: #d42727 !important;
+                background-color: #2f557a !important;
                 color: $white;
                 border: none;
                 border-radius: 8px;
@@ -90,7 +90,7 @@
                 transition: background-color 0.3s ease;
                 margin-top: 0.9rem;
                 &:hover{
-                    background-color: rgb(158, 32, 32) !important;
+                    background-color: rgb(45,84,122) !important;
                     color: #fff;
                 }
 
@@ -186,8 +186,8 @@
 
     &:hover {
       text-decoration: underline;
-      color: rgb(247, 92, 92);
-      transition: 0.3s;
+      color: rgba(105,131,168,255);
+        transition: 0.3s;
     }
   }
 

@@ -22,12 +22,6 @@ const userCreateBreadCrumbs = [
         path: ROUTES.UI.USERS,
         isSeparator: false,
         isActive: false,
-    },
-    {
-        title: 'Yeni Kullanıcı Ekle',
-        path: '',
-        isSeparator: false,
-        isActive: true,
     }
 ];
 
@@ -95,9 +89,9 @@ const UserCreatePage = () => {
         <Content>
             <div className="d-flex flex-column gap-7 gap-lg-10">
                 <div className="d-flex justify-content-between mb-5">
-                    <h2 className="fw-bold">Yeni Kullanıcı Ekle</h2>
+                    <h2 className="fw-bold"> </h2>
                     <button
-                        className="btn btn-sm btn-primary"
+                        className="btn btn-sm btn-fsh-primary"
                         onClick={() => navigate(ROUTES.UI.USERS)}
                     >
                         <i className="bi bi-arrow-left me-2"></i>

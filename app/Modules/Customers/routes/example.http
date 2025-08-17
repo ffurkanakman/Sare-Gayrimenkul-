@@ -1,0 +1,30 @@
+### POST request to Customers API
+POST http://localhost:8000/api/Customers
+Content-Type: application/json
+
+{
+    "name": "John Doe"
+}
+
+###
+
+GET http://localhost:8000/api/customers
+
+###
+
+GET http://localhost:8000/api/customers/1
+
+###
+
+PUT http://localhost:8000/api/customers/1
+Content-Type: application/json
+
+{
+    "name": "Updated John Doe"
+}
+
+###
+
+DELETE http://localhost:8000/api/customers/1
+
+###

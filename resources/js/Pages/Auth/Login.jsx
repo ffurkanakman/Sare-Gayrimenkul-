@@ -1,17 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "../../Libs/Routes/config";
-import {Slide, toast} from "react-toastify";
-import { useAuth } from "../../ServerSide/Hooks/Auth/useAuth";
+import { Slide, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setToken, setAuthenticated, setLoading, setError } from "../../Repo/Redux/Modules/authSlice";
+import { apiService } from "../../ServerSide/Load";
+import { API_CONFIG } from "../../ServerSide/Endpoints";
 import "../../../sass/page/_auth.scss";
 
 const Login = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const { login, isAuthenticated, loading, loginError } = useAuth();
+    const dispatch = useDispatch();
+    const { isAuthenticated, loading, error } = useSelector(state => state.auth);
+    const [loginError, setLoginError] = useState(null);
 
     const initialValues = {
         email: "",
@@ -28,6 +33,14 @@ const Login = () => {
     });
 
 
+    // Check if user is already authenticated
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate(ROUTES.UI.LANDING);
+        }
+    }, [isAuthenticated, navigate]);
+
+    // Show logout toast if needed
     useEffect(() => {
         const isLogoutPending = sessionStorage.getItem('logoutToastPending');
         if (isLogoutPending) {
@@ -40,7 +53,6 @@ const Login = () => {
                     autoClose: 2000,
                     pauseOnHover: false
                 });
-
             });
         }
     }, []);
@@ -49,16 +61,35 @@ const Login = () => {
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            const result = await login(values);
-            if (result) {
+            dispatch(setLoading(true));
+            setLoginError(null);
+
+            const response = await apiService.post(API_CONFIG.ENDPOINTS.AUTH.LOGIN, values);
+
+            if (response.data.token) {
+                dispatch(setToken(response.data.token));
+                dispatch(setUser(response.data.user));
+                dispatch(setAuthenticated(true));
+                localStorage.setItem('token', response.data.token);
+
                 toast.success(t("Giriş başarılı! Yönlendiriliyorsunuz..."));
                 setTimeout(() => {
                     navigate(ROUTES.UI.LANDING);
                 }, 1500);
+
+                return true;
             }
+
+            return false;
         } catch (error) {
             console.error("Giriş hatası:", error);
+            const errorMessage = error.response?.data?.message || 'Giriş yapılırken bir hata oluştu';
+            setLoginError(errorMessage);
+            toast.error(errorMessage);
+            dispatch(setError(errorMessage));
+            return false;
         } finally {
+            dispatch(setLoading(false));
             setSubmitting(false);
         }
     };
@@ -120,9 +151,9 @@ const Login = () => {
                                     )}
                                 </button>
 
-                                {loginError && (
+                                {(loginError || error) && (
                                     <div className="alert alert-danger mt-3">
-                                        {loginError}
+                                        {loginError || error}
                                     </div>
                                 )}
 

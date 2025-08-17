@@ -17,22 +17,10 @@ const AsideMenuMain = () => {
                     fontIcon="bi-app-indicator"
                 />
                 <AsideMenuItem
-                    to="/Kullanicilar"
-                    icon="people"
-                    title="Kullanıcılar"
-                    fontIcon="bi-people"
-                />
-                <AsideMenuItem
                     to="/Musteriler"
                     icon="people"
                     title="Müşteriler"
                     fontIcon="bi-people"
-                />
-                <AsideMenuItem
-                    to="/builder"
-                    icon="switch"
-                    title="Layout Builder"
-                    fontIcon="bi-layers"
                 />
                 <div className="menu-item">
                     <div className="menu-content pt-8 pb-2">

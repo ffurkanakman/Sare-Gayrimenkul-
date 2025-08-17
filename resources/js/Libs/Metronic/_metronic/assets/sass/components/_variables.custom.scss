@@ -86,16 +86,16 @@ $primary-light-dark: 				#1F212A !default;
 $primary-clarity-dark: 				rgba(#00A261, 0.2) !default;
 
 // FSH Primary colors
-$fsh-primary: 					#d42727 !default;
-$fsh-primary-active: 			#b01f1f !default;
+$fsh-primary: 					#2f557a !default;
+$fsh-primary-active: 			#6a82a5 !default;
 $fsh-primary-light: 			#fae6e6 !default;
-$fsh-primary-clarity: 			rgba(#d42727, 0.2) !default;
+$fsh-primary-clarity: 			rgba(#2f557a, 0.2) !default;
 $fsh-primary-inverse: 			$white !default;
 
-$fsh-primary-dark: 				#c02020 !default;
-$fsh-primary-active-dark: 		#e53030 !default;
-$fsh-primary-light-dark: 		#2a1f1f !default;
-$fsh-primary-clarity-dark: 		rgba(#c02020, 0.2) !default;
+$fsh-primary-dark: 				#3c647e !default;
+$fsh-primary-active-dark: 		#5c7ca0 !default;
+$fsh-primary-light-dark: 		#5c7ca0 !default;
+$fsh-primary-clarity-dark: 		rgba(#2f557a, 0.2) !default;
 $fsh-primary-inverse-dark: 		$white !default;
 
 // Override component hover variables to use fsh-primary

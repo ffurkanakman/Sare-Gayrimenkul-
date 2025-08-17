@@ -10,6 +10,7 @@ export default defineConfig({
             // Blade’de @vite ile verdiğin iki giriş dosyası
             input: ['resources/globals.scss', 'resources/js/app.jsx'],
             refresh: true,
+            favicon: '/public/media/logos/fav.png'
         }),
     ],
 })

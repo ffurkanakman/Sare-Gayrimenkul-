@@ -33,9 +33,9 @@ const AsideDefault = () => {
                 >
                     <Link to="/dashboard">
                         <img
-                            src={toAbsoluteUrl("img/vector/logo.png")}
+                            src={toAbsoluteUrl("media/logos/logo.png")}
                             alt="logo"
-                            className="h-35px"
+                            className="h-25px"
                         />
                     </Link>
                 </div>
@@ -69,7 +69,7 @@ const AsideDefault = () => {
                     <button
                         id="kt_aside_toggle"
                         className={clsx(
-                            "btn btn-sm btn-icon bg-body btn-color-gray-700 btn-active-primary position-absolute translate-middle start-100 end-0 bottom-0 shadow-sm d-none d-lg-flex",
+                            "btn btn-sm btn-icon bg-body btn-color-gray-700 btn-active-fsh-primary position-absolute translate-middle start-100 end-0 bottom-0 shadow-sm d-none d-lg-flex",
                             classes.asideToggle.join(" ")
                         )}
                         data-kt-toggle="true"

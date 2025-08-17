@@ -7,6 +7,8 @@ import {NotificationsTab} from './NotificationsTab'
 import {ProjectsTab} from './ProjectsTab'
 import {SubscriptionsTab} from './SubscriptionsTab'
 import {TasksTab} from './TasksTab'
+import {Link} from "react-router-dom";
+import {ROUTES} from "../../../../../../Routes/config";
 
 type Props = {
   link: string
@@ -59,9 +61,8 @@ const TabsBase: FC<Props> = ({link}) => {
       {/* end::Wrapper */}
       {/* begin::Footer */}
       <div className='flex-column-auto pt-10 px-5' id='kt_aside_secondary_footer'>
-        <a
-          href={import.meta.env.VITE_APP_PREVIEW_DOCS_URL + '/changelog'}
-          target='_blank'
+        <Link
+          to={ROUTES.UI.USERS}
           className='btn btn-bg-light btn-color-gray-600 btn-flex btn-active-color-primary flex-center w-100'
           data-bs-toggle='tooltip'
           data-bs-custom-class='tooltip-dark'
@@ -71,7 +72,7 @@ const TabsBase: FC<Props> = ({link}) => {
         >
           <span className='btn-label'>Kullanıcılar</span>
           <KTIcon iconName='profile-circle' className='btn-icon fs-4 ms-2' />
-        </a>
+        </Link>
       </div>
       {/* end::Footer */}
     </div>

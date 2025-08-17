@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('status')->default(1);
             $table->string('role')->default('user'); // 👈 default user rolü
+            $table->string('pic')->nullable(); // 👈 default user rolü
             $table->string('remember_token', 100)->nullable();
             $table->timestamps();
         });
