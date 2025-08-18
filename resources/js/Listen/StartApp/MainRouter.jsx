@@ -12,6 +12,8 @@ import KullaniciGoruntule from "../../Pages/Ui/KullaniciGoruntule";
 import KullaniciDuzenle from "../../Pages/Ui/KullaniciDuzenle";
 import YeniKullanici from "../../Pages/Ui/YeniKullanici";
 import Customers from "../../Pages/Ui/Customers/index";
+import MyCustomers from "../../Pages/Ui/MyCustomers";
+import Substation from "../../Pages/Ui/Substation";
 import ProtectedRoute from "../../Components/Auth/ProtectedRoute";
 
 
@@ -85,6 +87,22 @@ const MainRouter = () => {
                         element={
                             <ProtectedRoute>
                                 <Customers />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path={ROUTES.UI.MYCLIENTS}
+                        element={
+                            <ProtectedRoute>
+                                <MyCustomers />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path={ROUTES.UI.SUBSTATION}
+                        element={
+                            <ProtectedRoute>
+                                <Substation />
                             </ProtectedRoute>
                         }
                     />

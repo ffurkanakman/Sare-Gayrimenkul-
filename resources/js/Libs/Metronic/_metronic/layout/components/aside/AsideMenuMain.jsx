@@ -23,9 +23,15 @@ const AsideMenuMain = () => {
                     fontIcon="bi-people"
                 />
                 <AsideMenuItem
-                    to="/Musteriler"
+                    to="/Musterilerim"
                     icon="people"
                     title="Müşterilerim"
+                    fontIcon="bi-people"
+                />
+                <AsideMenuItem
+                    to="/Firmalar"
+                    icon="people"
+                    title="Firmalar"
                     fontIcon="bi-people"
                 />
                 <div className="menu-item">

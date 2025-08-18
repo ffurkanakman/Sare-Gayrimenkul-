@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MyCustomers = () => {
+const Substation = () => {
     return (
         <div className="container py-4">
             {/* boş sayfa */}
@@ -8,4 +8,4 @@ const MyCustomers = () => {
     );
 };
 
-export default MyCustomers;
+export default Substation;
