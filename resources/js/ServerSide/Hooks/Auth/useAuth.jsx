@@ -1,6 +1,9 @@
-import { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+// resources/js/ServerSide/Hooks/Auth/useAuth.jsx
+import { useState, useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+
 import {
     setUser,
     setToken,
@@ -8,221 +11,197 @@ import {
     setLoading,
     setError,
     logout as logoutAction,
-    setAuthChecked
-} from '../../../Repo/Redux/Modules/authSlice';
-import { apiService } from '../../Load';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../../Libs/Routes/config';
-import { API_CONFIG } from '../../Endpoints';
+    setAuthChecked,
+} from '../../../Repo/Redux/Modules/authSlice'
+
+import { apiService } from '../../Load'
+import { ROUTES } from '../../../Libs/Routes/config'
+import { API_CONFIG } from '../../Endpoints'
 
 export const useAuth = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { user, token, isAuthenticated, loading, error } = useSelector(state => state.auth);
-    const [loginError, setLoginError] = useState(null);
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { user, token, isAuthenticated, loading, error } = useSelector((state) => state.auth)
+    const [loginError, setLoginError] = useState(null)
 
-    // Login function
-    // login fonksiyonu içinde sadece şu haliyle bırakıyoruz:
+    // /me çağrısını tek yere topladık
+    const fetchMe = useCallback(async () => {
+        const res = await apiService.get('/api/v1/me', { withCredentials: true })
+        // BEKLENEN: { status:true, data:{...UserResource} }  || bazen direkt { ...UserResource }
+        const me = (res && res.data && (res.data.data || res.data)) || null
+        if (!me) throw new Error('Me response empty')
+
+        // user'ı TAM HALİYLE yaz (avatar_url, pic vs. kaybolmasın)
+        dispatch(setUser(me))
+        dispatch(setAuthenticated(true))
+        return me
+    }, [dispatch])
+
+    // LOGIN
     const login = async (credentials) => {
         try {
-            dispatch(setLoading(true));
-            setLoginError(null);
+            dispatch(setLoading(true))
+            setLoginError(null)
 
-            const response = await apiService.post(API_CONFIG.ENDPOINTS.AUTH.LOGIN, credentials);
+            const response = await apiService.post(API_CONFIG.ENDPOINTS.AUTH.LOGIN, credentials)
 
-            if (response.data.token) {
-                dispatch(setToken(response.data.token));
-                dispatch(setUser(response.data.user));
-                dispatch(setAuthenticated(true));
-                localStorage.setItem('token', response.data.token);
-
-                return true; // Sadece başarılı olduğunu döner
+            const tok = response && response.data && response.data.token
+            if (!tok) {
+                toast.error('Giriş başarısız: token alınamadı')
+                return false
             }
 
-            return false;
-        } catch (error) {
-            console.error('Login error:', error);
-            const errorMessage = error.response?.data?.message || 'Giriş yapılırken bir hata oluştu';
-            setLoginError(errorMessage);
-            toast.error(errorMessage);
-            dispatch(setError(errorMessage));
-            return false;
+            dispatch(setToken(tok))
+            localStorage.setItem('token', tok)
+
+            // Login dönüşündeki user eksik olabilir → /me ile kesinle
+            await fetchMe()
+            dispatch(setAuthenticated(true))
+            return true
+        } catch (err) {
+            console.error('Login error:', err)
+            const errorMessage = err?.response?.data?.message || 'Giriş yapılırken bir hata oluştu'
+            setLoginError(errorMessage)
+            toast.error(errorMessage)
+            dispatch(setError(errorMessage))
+            return false
         } finally {
-            dispatch(setLoading(false));
+            dispatch(setLoading(false))
         }
-    };
+    }
 
-
-    // Register function
+    // REGISTER
     const register = async (userData) => {
         try {
-            dispatch(setLoading(true));
+            dispatch(setLoading(true))
 
-            const response = await apiService.post(API_CONFIG.ENDPOINTS.AUTH.REGISTER, userData);
+            const response = await apiService.post(API_CONFIG.ENDPOINTS.AUTH.REGISTER, userData)
 
-            if (response.data?.token && response.data?.user) {
-                toast.success('Kayıt başarılı! Yönlendiriliyorsunuz...');
-
-                dispatch(setToken(response.data.token));
-                dispatch(setUser(response.data.user));
-                dispatch(setAuthenticated(true));
-                localStorage.setItem('token', response.data.token);
-
-                setTimeout(() => {
-                    navigate(ROUTES.UI.LANDING);
-                }, 1500); // 1.5 saniye sonra yönlendir
-                return true;
+            const tok = response && response.data && response.data.token
+            if (!tok) {
+                const message = (response && response.data && response.data.message) || 'Kayıt işlemi tamamlanamadı'
+                toast.warning(message)
+                return false
             }
 
+            toast.success('Kayıt başarılı! Yönlendiriliyorsunuz...')
+            dispatch(setToken(tok))
+            localStorage.setItem('token', tok)
 
+            await fetchMe()
+            dispatch(setAuthenticated(true))
 
-            const message = response.data?.message || 'Kayıt işlemi tamamlanamadı';
-            toast.warning(message);
-            return false;
-        } catch (error) {
-            console.error('Register error:', error);
-
-            const responseErrors = error.response?.data?.errors;
-
+            setTimeout(() => navigate(ROUTES.UI.LANDING), 1500)
+            return true
+        } catch (err) {
+            console.error('Register error:', err)
+            const responseErrors = err?.response?.data?.errors
             if (responseErrors) {
-                // Laravel'den gelen tüm validation hatalarını döndür
-                Object.values(responseErrors).flat().forEach((msg) => {
-                    toast.error(msg);
-                });
+                Object.values(responseErrors).flat().forEach((msg) => toast.error(String(msg)))
             } else {
                 const errorMessage =
-                    error.response?.data?.message ||
-                    error.response?.data?.errors?.error ||
-                    'Kayıt olurken bir hata oluştu';
-
-                toast.error(errorMessage);
-                dispatch(setError(errorMessage));
+                    err?.response?.data?.message ||
+                    err?.response?.data?.errors?.error ||
+                    'Kayıt olurken bir hata oluştu'
+                toast.error(errorMessage)
+                dispatch(setError(errorMessage))
             }
-
-            return false;
+            return false
         } finally {
-            dispatch(setLoading(false));
+            dispatch(setLoading(false))
         }
-    };
+    }
 
-    // Logout function
-
+    // LOGOUT
     const logout = async () => {
         try {
-            dispatch(setLoading(true));
+            dispatch(setLoading(true))
 
             if (isAuthenticated) {
-                await apiService.post('/api/v1/Cikis');
+                await apiService.post('/api/v1/Cikis', {}, { withCredentials: true })
             }
 
-            dispatch(logoutAction());
-            localStorage.removeItem('token');
+            dispatch(logoutAction())
+            localStorage.removeItem('token')
 
-            // ✅ Toast için flag bırak
-            sessionStorage.setItem('logoutToastPending', '1');
+            sessionStorage.setItem('logoutToastPending', '1')
+            setTimeout(() => navigate(ROUTES.AUTH.LOGIN, { replace: true }), 100)
 
-            // ✅ Geçişi yumuşat: 100ms sonra replace: true ile yönlendir
-            setTimeout(() => {
-                navigate(ROUTES.AUTH.LOGIN, { replace: true });
-            }, 100);
-
-            return true;
-        } catch (error) {
-            console.error("Logout error:", error);
-            toast.error("Çıkış yapılırken bir hata oluştu");
-            return false;
+            return true
+        } catch (err) {
+            console.error('Logout error:', err)
+            toast.error('Çıkış yapılırken bir hata oluştu')
+            return false
         } finally {
-            dispatch(setLoading(false));
+            dispatch(setLoading(false))
         }
-    };
+    }
 
-
-
-
-
-    // Forgot password function
+    // FORGOT PASSWORD
     const forgotPassword = async (email) => {
         try {
-            dispatch(setLoading(true));
-
-            const response = await apiService.post('/api/v1/forgot-password', { email });
-
-            toast.success('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi');
-            return response.data;
-        } catch (error) {
-            console.error('Forgot password error:', error);
-            const errorMessage = error.response?.data?.message || 'Şifre sıfırlama işlemi sırasında bir hata oluştu';
-            toast.error(errorMessage);
-            throw error;
+            dispatch(setLoading(true))
+            const response = await apiService.post('/api/v1/forgot-password', { email })
+            toast.success('Şifre sıfırlama bağlantısı e-posta adresinize gönderildi')
+            return response.data
+        } catch (err) {
+            console.error('Forgot password error:', err)
+            const errorMessage = err?.response?.data?.message || 'Şifre sıfırlama işleminde hata'
+            toast.error(errorMessage)
+            throw err
         } finally {
-            dispatch(setLoading(false));
+            dispatch(setLoading(false))
         }
-    };
+    }
 
-    // Reset password function
+    // RESET PASSWORD
     const resetPassword = async (data) => {
         try {
-            dispatch(setLoading(true));
-
-            const response = await apiService.post('/api/v1/reset-password-token', data);
-
-            toast.success('Şifreniz başarıyla sıfırlandı');
-            return response.data;
-        } catch (error) {
-            console.error('Reset password error:', error);
-            const errorMessage = error.response?.data?.message || 'Şifre sıfırlama işlemi sırasında bir hata oluştu';
-            toast.error(errorMessage);
-            throw error;
+            dispatch(setLoading(true))
+            const response = await apiService.post('/api/v1/reset-password-token', data)
+            toast.success('Şifreniz başarıyla sıfırlandı')
+            return response.data
+        } catch (err) {
+            console.error('Reset password error:', err)
+            const errorMessage = err?.response?.data?.message || 'Şifre sıfırlama işleminde hata'
+            toast.error(errorMessage)
+            throw err
         } finally {
-            dispatch(setLoading(false));
+            dispatch(setLoading(false))
         }
-    };
+    }
 
-    // Check if user is authenticated
+    // AUTH CHECK
     const checkAuth = useCallback(async () => {
         try {
-            dispatch(setLoading(true));
+            dispatch(setLoading(true))
 
-            // If we already have a user and token, consider authenticated
             if (user && token) {
-                dispatch(setAuthChecked(true));
-                return true;
+                dispatch(setAuthChecked(true))
+                return true
             }
 
-            // Check if we have a token in localStorage
-            const storedToken = localStorage.getItem('token');
+            const storedToken = localStorage.getItem('token')
             if (!storedToken) {
-                dispatch(setAuthChecked(true));
-                return false;
+                dispatch(setAuthChecked(true))
+                return false
             }
 
-            // Set token from localStorage
-            dispatch(setToken(storedToken));
+            dispatch(setToken(storedToken))
 
-            // Validate token by fetching user data
-            const response = await apiService.get('/api/v1/me');
-
-            if (response.data) {
-                dispatch(setUser(response.data));
-                dispatch(setAuthenticated(true));
-                dispatch(setAuthChecked(true));
-                return true;
-            }
-
-            dispatch(setAuthChecked(true));
-            return false;
-        } catch (error) {
-            console.error('Auth check error:', error);
-            // Clear invalid token
-            localStorage.removeItem('token');
-            dispatch(logoutAction());
-            dispatch(setAuthChecked(true));
-            return false;
+            await fetchMe()
+            dispatch(setAuthChecked(true))
+            return true
+        } catch (err) {
+            console.error('Auth check error:', err)
+            localStorage.removeItem('token')
+            dispatch(logoutAction())
+            dispatch(setAuthChecked(true))
+            return false
         } finally {
-            dispatch(setLoading(false));
+            dispatch(setLoading(false))
         }
-    }, [dispatch, user, token]);
+    }, [dispatch, user, token, fetchMe])
 
     return {
         user,
@@ -236,8 +215,9 @@ export const useAuth = () => {
         logout,
         forgotPassword,
         resetPassword,
-        checkAuth
-    };
-};
+        checkAuth,
+        fetchMe,
+    }
+}
 
-export default useAuth;
+export default useAuth

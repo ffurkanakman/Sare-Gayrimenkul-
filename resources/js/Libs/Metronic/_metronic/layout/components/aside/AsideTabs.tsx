@@ -14,23 +14,8 @@ const tabs: ReadonlyArray<{link: string; icon: string; tooltip: string}> = [
     tooltip: 'Menu',
   },
   {
-    link: 'subscription',
-    icon: 'chart-simple',
-    tooltip: 'Subscription',
-  },
-  {
-    link: 'tasks',
-    icon: 'shield-tick',
-    tooltip: 'Tasks',
-  },
-  {
-    link: 'notifications',
-    icon: 'abstract-26',
-    tooltip: 'Notifications',
-  },
-  {
     link: 'authors',
-    icon: 'add-files',
+    icon: 'chart-simple',
     tooltip: 'Authors',
   },
 ]

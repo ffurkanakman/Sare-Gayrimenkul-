@@ -22,6 +22,12 @@ const AsideMenuMain = () => {
                     title="Müşteriler"
                     fontIcon="bi-people"
                 />
+                <AsideMenuItem
+                    to="/Musteriler"
+                    icon="people"
+                    title="Müşterilerim"
+                    fontIcon="bi-people"
+                />
                 <div className="menu-item">
                     <div className="menu-content pt-8 pb-2">
                         <span className="menu-section text-muted text-uppercase fs-8 ls-1">

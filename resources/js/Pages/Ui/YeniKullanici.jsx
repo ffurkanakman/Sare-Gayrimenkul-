@@ -301,9 +301,9 @@ const UserCreatePage = () => {
                                                 className="form-select"
                                             >
                                                 <option value="">Rol Seçiniz</option>
-                                                <option value="user">Kullanıcı</option>
+                                                <option value="user">Satış Temsilcisi</option>
                                                 <option value="admin">Yönetici</option>
-                                                <option value="superadmin">Süper Yönetici</option>
+
                                             </Field>
                                             <ErrorMessage name="role" component="div" className="text-danger mt-2" />
                                         </div>

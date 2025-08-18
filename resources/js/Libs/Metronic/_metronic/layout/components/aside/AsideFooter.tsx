@@ -54,7 +54,7 @@ const AsideFooter = () => {
                     data-bs-placement='right'
                     title='Notifications'
                 >
-                    <KTIcon iconName='element-11' className='fs-2 text-lg-1' />
+                    <KTIcon iconName='notification' className='fs-2 text-lg-1' />
                 </div>
                 {/* not: prop adı 'backgroundUrl' olmalı (typo vardı) */}
                 <HeaderNotificationsMenu backgroundUrl='/media/misc/pattern-1.jpg' />
