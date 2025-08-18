@@ -123,7 +123,7 @@ const UsersPage = () => {
                         <span className='card-label fw-bold fs-3 mb-1'>Kullanıcı Listesi</span>
                         <span className='text-muted mt-1 fw-semibold fs-7'>
               Toplam {users ? users.length : 0} kullanıcı
-                     </span>
+            </span>
                     </h3>
                     <div className='card-toolbar'>
                         <Link to={ROUTES.UI.NEW_USER} className='btn btn-sm btn-primary'>
@@ -155,8 +155,17 @@ const UsersPage = () => {
                         {user.id}
                       </span>
                                     </td>
+
+                                    {/* ✅ Ad sütunu: avatar + ad */}
                                     <td>
                                         <div className='d-flex align-items-center'>
+                                            <div className='symbol symbol-40px me-3'>
+                                                <img
+                                                    src={user.avatar_url || '/placeholder-avatar.png'}
+                                                    alt={user.name}
+                                                    style={{ width: 40, height: 40, borderRadius: '999px', objectFit: 'cover' }}
+                                                />
+                                            </div>
                                             <div className='d-flex justify-content-start flex-column'>
                           <span className='text-dark fw-bold text-hover-primary fs-6'>
                             {user.name}
@@ -164,6 +173,7 @@ const UsersPage = () => {
                                             </div>
                                         </div>
                                     </td>
+
                                     <td>
                       <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
                         {user.surname}

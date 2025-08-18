@@ -68,9 +68,25 @@ export const useUser = () => {
         try {
             dispatch(setLoading(true));
 
-            const response = await apiService.put(`${API_CONFIG.ENDPOINTS.USER.USER_UPDATE}/${id}`, user);
+            const isFormData = typeof FormData !== 'undefined' && user instanceof FormData;
 
-            return response.data;
+            if (isFormData) {
+                // 🔑 PUT + FormData bazı PHP kurulumlarında sorun çıkarır.
+                // En stabil çözüm: POST ile gönderip method override kullanmak.
+                user.append('_method', 'PUT');
+                const response = await apiService.post(
+                    `${API_CONFIG.ENDPOINTS.USER.USER_UPDATE}/${id}`,
+                    user,
+                    { headers: { 'Content-Type': 'multipart/form-data' } }
+                );
+                return response.data;
+            } else {
+                const response = await apiService.put(
+                    `${API_CONFIG.ENDPOINTS.USER.USER_UPDATE}/${id}`,
+                    user
+                );
+                return response.data;
+            }
 
         } catch (error) {
             dispatch(setError(error.message));
@@ -85,7 +101,12 @@ export const useUser = () => {
         try {
             dispatch(setLoading(true));
 
-            const response = await apiService.post(API_CONFIG.ENDPOINTS.USER.USER, user);
+            const isFormData = typeof FormData !== 'undefined' && user instanceof FormData;
+            const response = await apiService.post(
+                API_CONFIG.ENDPOINTS.USER.USER,
+                user,
+                { headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : undefined }
+            );
 
             return response.data;
 

@@ -16,6 +16,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'role' => $this->role,
             'status' => $this->status ? 'active' : 'inactive',
+            'avatar_url'   => $this->avatar_url, // 👈 accessor
             'created_at' => $this->created_at?->toDateTimeString(),
             'updated_at' => $this->updated_at?->toDateTimeString(),
         ];

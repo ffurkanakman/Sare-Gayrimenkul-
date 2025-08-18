@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use App\Modules\Substation\Providers\SubstationServiceProvider;
 use App\Modules\Customers\Providers\CustomersServiceProvider;
 
 use App\Modules\User\Providers\UserServiceProvider;
@@ -15,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+    // Register services
+        $this->app->register(SubstationServiceProvider::class);
     // Register services
         $this->app->register(CustomersServiceProvider::class);
         // Register services

@@ -80,6 +80,24 @@ const UserDetailsPage = () => {
         );
     }
 
+    // Fotoğraf kutusu stili
+    const boxStyle = {
+        width: 120,
+        height: 120,
+        border: '2px dashed #cfd3d7',
+        borderRadius: 8,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#fafafa'
+    };
+    const imgStyle = {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        borderRadius: 6
+    };
+
     return (
         <Content>
             <div className="d-flex flex-column gap-7 gap-lg-10">
@@ -102,6 +120,21 @@ const UserDetailsPage = () => {
                     </div>
                     <KTCardBody className="py-3">
                         <div className="row mb-7">
+                            {/* ✅ Profil Fotoğrafı */}
+                            <div className="col-lg-4 col-md-6 mb-4">
+                                <div className="fw-bold text-gray-600 mb-1">Profil Fotoğrafı</div>
+                                <div style={boxStyle}>
+                                    {user.avatar_url ? (
+                                        <img src={user.avatar_url} alt="avatar" style={imgStyle} />
+                                    ) : (
+                                        <div className="text-center text-muted">
+                                            <div className="mb-1"><i className="bi bi-image" /></div>
+                                            <small>Fotoğraf yok</small>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
                             <div className="col-lg-4 col-md-6 mb-4">
                                 <div className="fw-bold text-gray-600 mb-1">ID</div>
                                 <div className="fs-5 text-dark">{user.id}</div>

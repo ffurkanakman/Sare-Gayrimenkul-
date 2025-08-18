@@ -19,5 +19,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'performance_coefficient' => 'float',
+        'status' => 'boolean',
     ];
+
+
+    // App/Modules/User/Models/User.php
+
+    protected $appends = ['avatar_url'];
+
+    public function getAvatarUrlAttribute(): ?string
+    {
+        if (!$this->pic) return null;
+
+        // DB’de URL varsa (/storage/...)
+        if (str_starts_with($this->pic, '/storage/')) {
+            return url($this->pic);
+        }
+
+        // DB’de path varsa (avatars/...)
+        return asset('storage/'.$this->pic);
+    }
+
 }

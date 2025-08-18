@@ -21,6 +21,8 @@ class UserRequest extends FormRequest
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
                 'role' => ['nullable', 'string'],
+                'pic'  => ['nullable','image','mimes:jpg,jpeg,png,webp','max:2048'],
+                'status' => ['sometimes','boolean'],
             ];
         }
 
@@ -35,6 +37,10 @@ class UserRequest extends FormRequest
             'password' => ['sometimes', 'nullable', 'string', 'min:8'],
             'role' => ['sometimes', 'string'],
             'status' => ['sometimes', 'string', 'in:active,inactive'],
+            'status' => ['sometimes','boolean'],
+            // 👇 güncellemede resim & silme
+            'pic'          => ['sometimes','nullable','image','mimes:jpg,jpeg,png,webp','max:2048'],
+            'remove_pic'   => ['sometimes','boolean'],
         ];
     }
 }
