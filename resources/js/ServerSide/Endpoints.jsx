@@ -12,6 +12,12 @@ export const API_CONFIG = {
             USER: '/api/user',
             USER_UPDATE: '/api/user'
         },
+        SUBSTATION: {
+            SUBSTATION: '/api/substation',
+            SUBSTATION_UPDATE: '/api/substation',
+            SUBSTATION_DELETE: '/api/substation',
+            SUBSTATION_CREATE: '/api/substation',
+        },
 
     }
 };

@@ -20,6 +20,12 @@ class SubstationService
 
     public function create(array $data)
     {
+        // Dosya yükleme varsa işle
+        if (isset($data['cover_image']) && $data['cover_image'] instanceof \Illuminate\Http\UploadedFile) {
+            $path = $data['cover_image']->store('substations', 'public');
+            $data['cover_image'] = $path;
+        }
+
         return $this->substationRepository->create($data);
     }
 
@@ -28,8 +34,14 @@ class SubstationService
         return $this->substationRepository->find($id);
     }
 
+
     public function update($id, array $data)
     {
+        if (isset($data['cover_image']) && $data['cover_image'] instanceof \Illuminate\Http\UploadedFile) {
+            $path = $data['cover_image']->store('substations', 'public');
+            $data['cover_image'] = $path;
+        }
+
         return $this->substationRepository->update($id, $data);
     }
 

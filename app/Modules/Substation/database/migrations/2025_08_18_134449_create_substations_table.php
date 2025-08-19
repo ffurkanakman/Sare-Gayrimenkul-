@@ -9,7 +9,11 @@ return new class extends Migration {
     {
         Schema::create('substations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            // Firma adı (veya firma ilişkisi olacaksa company_id)
+            $table->string('company_name')->nullable();
+            // Kapak foto (string olarak dosya yolu ya da URL saklanır)
+            $table->string('cover_image')->nullable();
+
             $table->timestamps();
         });
     }

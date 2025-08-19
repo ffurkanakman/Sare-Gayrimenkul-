@@ -24,15 +24,15 @@ const AsideMenuMain = () => {
                 />
                 <AsideMenuItem
                     to="/Musterilerim"
-                    icon="people"
+                    icon="user-tick"
                     title="Müşterilerim"
-                    fontIcon="bi-people"
+                    fontIcon="bi-person-check"
                 />
                 <AsideMenuItem
                     to="/Firmalar"
-                    icon="people"
+                    icon="shop"
                     title="Firmalar"
-                    fontIcon="bi-people"
+                    fontIcon="bi-buildings"
                 />
                 <div className="menu-item">
                     <div className="menu-content pt-8 pb-2">

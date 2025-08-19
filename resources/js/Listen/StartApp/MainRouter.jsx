@@ -13,13 +13,13 @@ import KullaniciDuzenle from "../../Pages/Ui/KullaniciDuzenle";
 import YeniKullanici from "../../Pages/Ui/YeniKullanici";
 import Customers from "../../Pages/Ui/Customers/index";
 import MyCustomers from "../../Pages/Ui/Customers/MyCustomers";
-import Substation from "../../Pages/Ui/Substation";
+import Substation from "../../Pages/Ui/Substations/Substation";
 import ProtectedRoute from "../../Components/Auth/ProtectedRoute";
-
-
 import { ErrorsPage } from "../../Libs/Metronic/app/modules/errors/ErrorsPage";
 import { PagesLoad } from "../../Pages/Load.jsx";
 import Navbar from "../../Pages/Ui/Settings/Navbar.jsx";
+import SubstationCreateModal from "../../Pages/Ui/Substations/Modals/SubstationCreateModal";
+import SubstationEditModal from "../../Pages/Ui/Substations/Modals/SubstationEditModal";
 
 
 const MainRouter = () => {
@@ -96,6 +96,22 @@ const MainRouter = () => {
                         element={
                             <ProtectedRoute>
                                 <Substation />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path={ROUTES.UI.NEW_SUBSTATION}
+                        element={
+                            <ProtectedRoute>
+                                <SubstationCreateModal />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path={ROUTES.UI.EDIT_SUBSTATION}
+                        element={
+                            <ProtectedRoute>
+                                <SubstationEditModal />
                             </ProtectedRoute>
                         }
                     />

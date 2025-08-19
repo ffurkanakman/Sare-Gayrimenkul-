@@ -19,6 +19,9 @@ export const ROUTES = {
         VIEW_CLIENT: "/MusteriGoruntule/:id",
         EDIT_CLIENT: "/MusteriDuzenle/:id",
         MYCLIENTS: "/Musterilerim",
-        SUBSTATION: "Firmalar"
+        SUBSTATION: "Firmalar",
+        NEW_SUBSTATION: "/YeniFirma",
+        VIEW_SUBSTATION: "/FirmaGoruntule/:id",
+        EDIT_SUBSTATION: "/FirmaDuzenle/:id",
     },
 };

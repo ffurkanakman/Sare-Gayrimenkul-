@@ -10,7 +10,8 @@ class SubstationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'company_name' => $this->company_name,
+            'cover_image' => $this->cover_image,
             'created_at' => $this->created_at?->toDateTimeString(),
             'updated_at' => $this->updated_at?->toDateTimeString(),
         ];

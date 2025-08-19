@@ -15,7 +15,9 @@ class SubstationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'company_name'         => [$this->isMethod('post') ? 'required' : 'sometimes','string','max:255'],
+            // Eğer dosya yükleyeceksen:
+             'cover_image' => ['sometimes','nullable','image','mimes:jpg,jpeg,png,webp','max:5120'],
         ];
     }
 }
