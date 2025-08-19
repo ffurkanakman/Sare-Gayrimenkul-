@@ -38,7 +38,7 @@ const UsersPage = () => {
 
     // Get current users
     const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage; // <-- düzeltildi
     const currentUsers = users ? users.slice(indexOfFirstItem, indexOfLastItem) : [];
 
     console.log("gelen users: ", users);
@@ -48,6 +48,16 @@ const UsersPage = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     // Calculate total pages
     const totalPages = users ? Math.ceil(users.length / itemsPerPage) : 0;
+
+    // --- ROL ETİKETİ ÇEVİRİSİ ---
+    const getRoleLabel = (r) => {
+        if (!r) return 'Kullanıcı';
+        switch (String(r).toLowerCase()) {
+            case 'admin': return 'Yönetici';
+            case 'user':  return 'Satış Temsilcisi';
+            default:      return r;
+        }
+    };
 
     // --- SİLME: SweetAlert2 ile onay ---
     const handleDelete = async (id) => {
@@ -191,7 +201,7 @@ const UsersPage = () => {
                                     </td>
                                     <td>
                       <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
-                        {user.role || 'Kullanıcı'}
+                        {getRoleLabel(user.role)}
                       </span>
                                     </td>
                                     <td>
