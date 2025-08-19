@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Modules\User\Services\UserService;
 use App\Modules\User\Http\Requests\UserRequest;
 use App\Modules\User\Http\Resources\UserResource;
+use App\Modules\Customers\Http\Resources\CustomersResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use App\Traits\HandlesApiExceptions;
 
 class UserController extends Controller
@@ -56,6 +58,33 @@ class UserController extends Controller
         return $this->handleApiExceptions(function () use ($id) {
             $this->userService->delete($id);
         return $this->deletedResponse();
+        });
+    }
+
+    /**
+     * Get customers assigned to a specific user
+     *
+     * @param Request $request
+     * @param int $id User ID
+     * @return JsonResponse
+     */
+    public function getCustomers(Request $request, $id): JsonResponse
+    {
+        return $this->handleApiExceptions(function () use ($request, $id) {
+            $perPage = $request->query('per_page', 15);
+            $customers = $this->userService->getUserCustomers($id, $perPage);
+
+            return $this->successResponse([
+                'data' => CustomersResource::collection($customers),
+                'pagination' => [
+                    'total' => $customers->total(),
+                    'per_page' => $customers->perPage(),
+                    'current_page' => $customers->currentPage(),
+                    'last_page' => $customers->lastPage(),
+                    'from' => $customers->firstItem(),
+                    'to' => $customers->lastItem()
+                ]
+            ]);
         });
     }
 }

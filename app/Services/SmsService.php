@@ -25,7 +25,6 @@ class SmsService
         $this->origin = env('SMS_ORIGIN');
         $this->postUrl = env('SMS_API_URL', 'https://api.vatansms.net/api/v1/1toN');
         $this->lang = env('SMS_LANG', 'Turkce');
-        $this->ext = env('SMS_EXT', 'com');
     }
 
     public function sendSingleSms($messageData)

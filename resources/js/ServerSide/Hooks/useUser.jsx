@@ -108,6 +108,19 @@ export const useUser = () => {
                 { headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : undefined }
             );
 
+            // Update Redux store with the newly created user data
+            if (response.data && response.data.data) {
+                // Store the current user in Redux
+                dispatch(setCurrentUser({
+                    name: response.data.data.name,
+                    phone_number: response.data.data.phone_number,
+                    email: response.data.data.email,
+                    role: response.data.data.role,
+                    status: response.data.data.status ? 'active' : 'inactive',
+                    avatar_url: response.data.data.avatar_url
+                }));
+            }
+
             return response.data;
 
         } catch (error) {

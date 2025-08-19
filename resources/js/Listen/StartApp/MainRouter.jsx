@@ -12,13 +12,14 @@ import KullaniciGoruntule from "../../Pages/Ui/KullaniciGoruntule";
 import KullaniciDuzenle from "../../Pages/Ui/KullaniciDuzenle";
 import YeniKullanici from "../../Pages/Ui/YeniKullanici";
 import Customers from "../../Pages/Ui/Customers/index";
-import MyCustomers from "../../Pages/Ui/MyCustomers";
+import MyCustomers from "../../Pages/Ui/Customers/MyCustomers";
 import Substation from "../../Pages/Ui/Substation";
 import ProtectedRoute from "../../Components/Auth/ProtectedRoute";
 
 
 import { ErrorsPage } from "../../Libs/Metronic/app/modules/errors/ErrorsPage";
 import { PagesLoad } from "../../Pages/Load.jsx";
+import Navbar from "../../Pages/Ui/Settings/Navbar.jsx";
 
 
 const MainRouter = () => {
@@ -91,14 +92,6 @@ const MainRouter = () => {
                         }
                     />
                     <Route
-                        path={ROUTES.UI.MYCLIENTS}
-                        element={
-                            <ProtectedRoute>
-                                <MyCustomers />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route
                         path={ROUTES.UI.SUBSTATION}
                         element={
                             <ProtectedRoute>
@@ -106,6 +99,16 @@ const MainRouter = () => {
                             </ProtectedRoute>
                         }
                     />
+                    <Route element={<Navbar/>}>
+                        <Route
+                            path={ROUTES.UI.MYCLIENTS}
+                            element={
+                                <ProtectedRoute>
+                                    <MyCustomers />
+                                </ProtectedRoute>
+                            }
+                        />
+                    </Route>
                 </Route>
 
                 <Route path={`${ROUTES.UI.ERROR}/*`} element={<ErrorsPage />} />

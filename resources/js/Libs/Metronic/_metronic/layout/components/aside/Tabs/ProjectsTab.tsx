@@ -5,38 +5,18 @@ import {Dropdown1, Search} from '../../../../partials'
 const projects: ReadonlyArray<{image: string; title: string; link: string}> = [
   {
     image: 'media/svg/brand-logos/bebo.svg',
-    title: 'Briviba SaaS',
-    link: 'By James',
+    title: 'Ergene',
+    link: 'Kalan 13 Parsel',
   },
   {
     image: 'media/svg/brand-logos/vimeo.svg',
-    title: 'Vine Quick Reports',
-    link: 'By Andres',
+    title: 'Muratlı',
+    link: 'Kalan 20 Parsel',
   },
   {
     image: 'media/svg/brand-logos/kickstarter.svg',
-    title: 'KC Account CRM',
-    link: 'By Keenthemes',
-  },
-  {
-    image: 'media/svg/brand-logos/balloon.svg',
-    title: 'Baloon SaaS',
-    link: 'By SIA Team',
-  },
-  {
-    image: 'media/svg/brand-logos/infography.svg',
-    title: 'Most Cloudy UMC',
-    link: 'By Andrei',
-  },
-  {
-    image: 'media/svg/brand-logos/disqus.svg',
-    title: 'Disqus Forum',
-    link: 'By Disqus Inc.',
-  },
-  {
-    image: 'media/svg/brand-logos/plurk.svg',
-    title: 'Proove Quick CRM',
-    link: 'By Proove Limited',
+    title: 'Tekirdağ',
+    link: 'Kalan 3 Parsel',
   },
 ]
 
@@ -68,7 +48,7 @@ const ProjectsTab = () => {
       {/*begin::Projects*/}
       <div className='m-0'>
         {/*begin::Heading*/}
-        <h1 className='text-gray-800 fw-bold mb-6 mx-5'>Projects</h1>
+        <h1 className='text-gray-800 fw-bold mb-6 mx-5'>Projeler</h1>
         {/*end::Heading*/}
 
         {/*begin::Items*/}

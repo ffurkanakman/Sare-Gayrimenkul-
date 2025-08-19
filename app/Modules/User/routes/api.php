@@ -13,4 +13,5 @@ Route::group([
     Route::get('/{id}', [UserController::class, 'show'])->name('show'); // Tekil veri getir
     Route::put('/{id}', [UserController::class, 'update'])->name('update'); // Güncelleme
     Route::delete('/{id}', [UserController::class, 'destroy'])->name('destroy'); // Silme
+    Route::get('/{id}/customers', [UserController::class, 'getCustomers'])->name('get-customers'); // Kullanıcının müşterilerini getir
 });

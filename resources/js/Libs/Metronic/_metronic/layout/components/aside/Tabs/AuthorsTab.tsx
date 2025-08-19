@@ -9,50 +9,50 @@ const authors: ReadonlyArray<{
   {
     avatar: 'media/avatars/300-6.jpg',
     name: 'Emma Smith',
-    description: 'Project Manager',
+    description: '10 Satış',
   },
 
   {
     avatar: 'media/avatars/300-5.jpg',
     name: 'Sean Bean',
-    description: 'PHP, SQLite, Artisan CLI',
+    description: '7 Satış',
   },
 
   {
     avatar: 'media/avatars/300-11.jpg',
     name: 'Brian Cox',
-    description: 'HTML5, jQuery, CSS3',
+    description: '6 Satış',
   },
 
   {
     avatar: 'media/avatars/300-23.jpg',
     name: 'Dan Wilson',
-    description: 'MangoDB, Java',
+    description: '6 Satış',
   },
 
   {
     avatar: 'media/avatars/300-10.jpg',
     name: 'Natali Trump',
-    description: 'NET, Oracle, MySQL',
+    description: '4 Satış',
   },
 
   {
     avatar: 'media/avatars/300-9.jpg',
     name: 'Francis Mitcham',
-    description: 'React, Vue',
+    description: '2 Satış',
   },
 
   {
     avatar: 'media/avatars/300-12.jpg',
     name: 'Jessie Clarcson',
-    description: 'Angular, React',
+    description: '1 Satış',
   },
 ]
 
 const AuthorsTab = () => (
   <div className='mx-5'>
     {/*begin::Header*/}
-    <h3 className='fw-bolder text-gray-900 mx-0 mb-10'>Authors</h3>
+    <h3 className='fw-bolder text-gray-900 mx-0 mb-10'>Satış Temsilcileri</h3>
     {/*end::Header*/}
 
     {/*begin::Body*/}

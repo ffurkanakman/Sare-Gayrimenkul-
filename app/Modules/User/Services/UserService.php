@@ -87,6 +87,18 @@ class UserService
         return $this->userRepository->delete($id);
     }
 
+    /**
+     * Get customers assigned to a specific user
+     *
+     * @param int $userId The ID of the user
+     * @param int $perPage Number of items per page
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getUserCustomers($userId, $perPage = 15)
+    {
+        return $this->userRepository->getUserCustomers($userId, $perPage);
+    }
+
     // ===== helpers =====
 
     /**
