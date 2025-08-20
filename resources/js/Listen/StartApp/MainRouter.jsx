@@ -20,6 +20,7 @@ import { PagesLoad } from "../../Pages/Load.jsx";
 import Navbar from "../../Pages/Ui/Settings/Navbar.jsx";
 import SubstationCreateModal from "../../Pages/Ui/Substations/Modals/SubstationCreateModal";
 import SubstationEditModal from "../../Pages/Ui/Substations/Modals/SubstationEditModal";
+import AccountSettings from "../../Pages/Ui/Customers/AccountSettings";
 
 
 const MainRouter = () => {
@@ -121,6 +122,14 @@ const MainRouter = () => {
                             element={
                                 <ProtectedRoute>
                                     <MyCustomers />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.UI.ACCOUNT_SETTINGS}
+                            element={
+                                <ProtectedRoute>
+                                    <AccountSettings />
                                 </ProtectedRoute>
                             }
                         />

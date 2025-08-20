@@ -1,7 +1,7 @@
 import React from 'react';
-import {Link, Outlet} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {ROUTES} from "../../../Libs/Routes/config";
+import { NavLink, Outlet } from "react-router-dom"; // Link -> NavLink
+import { useSelector } from "react-redux";
+import { ROUTES } from "../../../Libs/Routes/config";
 
 const Navbar = () => {
     const user = useSelector(state => state.auth.user);
@@ -112,14 +112,25 @@ const Navbar = () => {
                     </div>
                     <ul className="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                         <li className="nav-item mt-2">
-                            <Link className="nav-link text-active-fsh-primary ms-0 me-10 py-5 active"
-                                  to={ROUTES.UI.MYCLIENTS}>
-                                Müşterilerim </Link>
+                            <NavLink
+                                to={ROUTES.UI.MYCLIENTS}
+                                end
+                                className={({ isActive }) =>
+                                    `nav-link text-active-fsh-primary ms-0 me-10 py-5 ${isActive ? 'active' : ''}`
+                                }
+                            >
+                                Müşterilerim
+                            </NavLink>
                         </li>
                         <li className="nav-item mt-2">
-                            <Link className="nav-link text-active-fsh-primary ms-0 me-10 py-5 "
-                                  to="#">
-                                Hesap Ayarları </Link>
+                            <NavLink
+                                to={ROUTES.UI.ACCOUNT_SETTINGS}
+                                className={({ isActive }) =>
+                                    `nav-link text-active-fsh-primary ms-0 me-10 py-5 ${isActive ? 'active' : ''}`
+                                }
+                            >
+                                Hesap Ayarları
+                            </NavLink>
                         </li>
                     </ul>
                 </div>
