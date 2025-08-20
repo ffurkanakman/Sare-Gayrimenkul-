@@ -1,6 +1,7 @@
 import { IntlProvider } from "react-intl";
 import { AsideMenuItemWithSub } from "./AsideMenuItemWithSub";
 import { AsideMenuItem } from "./AsideMenuItem";
+import {ROUTES} from "@/Libs/Routes/config.jsx";
 
 const AsideMenuMain = () => {
     const messages = {
@@ -54,7 +55,7 @@ const AsideMenuMain = () => {
                         hasBullet={true}
                     />
                     <AsideMenuItem
-                        to="/settings/account"
+                        to={ROUTES.UI.ACCOUNT_SETTINGS}
                         title="Hesap Ayarları"
                         hasBullet={true}
                     />

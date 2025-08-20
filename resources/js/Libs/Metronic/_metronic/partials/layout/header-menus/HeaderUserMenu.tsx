@@ -4,6 +4,7 @@ import useAuth from '../../../../../../ServerSide/Hooks/Auth/useAuth'
 import Swal from 'sweetalert2'
 import { toAbsoluteUrl } from '../../../helpers'
 import { apiService } from '@/ServerSide/Load.jsx'
+import { ROUTES } from '../../../../../../Libs/Routes/config.jsx';
 
 const joinAbs = (base: string, rel?: string | null) => {
     if (!rel) return ''
@@ -131,7 +132,7 @@ const HeaderUserMenu: FC = () => {
             <div className='separator my-2' />
 
             <div className='menu-item px-5 my-1'>
-                <Link to='/crafted/account/settings' className='menu-link px-5'>
+                <Link to={ROUTES.UI.ACCOUNT_SETTINGS} className='menu-link px-5'>
                     Hesap Ayarları
                 </Link>
             </div>

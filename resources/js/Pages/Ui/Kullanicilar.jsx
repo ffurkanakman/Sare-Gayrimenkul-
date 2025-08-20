@@ -59,7 +59,7 @@ const UsersPage = () => {
         }
     };
 
-    // --- SİLME: SweetAlert2 ile onay ---
+    // --- SİLME: Tek modal, onayda direkt sil ---
     const handleDelete = async (id) => {
         const wasLastOnPage = currentUsers.length === 1 && currentPage > 1;
 
@@ -71,36 +71,29 @@ const UsersPage = () => {
             confirmButtonText: 'Evet, sil',
             cancelButtonText: 'Vazgeç',
             reverseButtons: true,
-            confirmButtonColor: '#d33'
+            confirmButtonColor: '#d33',
+            showLoaderOnConfirm: true,                 // 🔹 butonda loader
+            allowOutsideClick: () => !Swal.isLoading(),
+            preConfirm: async () => {                  // 🔹 onaylanınca direkt sil
+                try {
+                    await deleteUser(id);
+                    await setUser();                   // listeyi yenile
+                } catch (e) {
+                    Swal.showValidationMessage(
+                        e?.response?.data?.message || e?.message || 'Silinemedi'
+                    );
+                }
+            },
         });
 
-        if (!result.isConfirmed) return;
-
-        try {
-            await Swal.fire({
-                title: 'Siliniyor...',
-                allowOutsideClick: false,
-                didOpen: () => Swal.showLoading()
-            });
-
-            await deleteUser(id);
-
+        if (result.isConfirmed) {
             if (wasLastOnPage) setCurrentPage((p) => p - 1);
-
             await Swal.fire({
                 icon: 'success',
                 title: 'Silindi',
                 timer: 1200,
                 showConfirmButton: false
             });
-        } catch (e) {
-            await Swal.fire({
-                icon: 'error',
-                title: 'Silinemedi',
-                text: e?.message ?? 'Bilinmeyen bir hata oluştu'
-            });
-        } finally {
-            Swal.close();
         }
     };
     // --- SİLME son ---

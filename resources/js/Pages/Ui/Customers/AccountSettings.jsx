@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { Content } from '../../../Libs/Metronic/_metronic/layout/components/Content';
 import { KTCard, KTCardBody } from '../../../Libs/Metronic/_metronic/helpers';
 import { useUser } from '../../../ServerSide/Hooks/useUser';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
@@ -15,10 +16,7 @@ const accountSchema = Yup.object().shape({
 });
 
 const AccountSettings = () => {
-    // 🔹 auth'tan giriş yapan kullanıcıyı al
     const authUser = useSelector((state) => state.auth.user);
-
-    // 🔹 user hook
     const { currentUser, getUserById, updateUser, loading } = useUser();
 
     const [initialValues, setInitialValues] = useState({
@@ -33,21 +31,17 @@ const AccountSettings = () => {
     const [removePic, setRemovePic] = useState(false);
     const fileRef = useRef(null);
 
-    // 🔹 Sayfa açılınca / auth.id değişince kendi profilini çek
     useEffect(() => {
         (async () => {
             try {
-                if (authUser?.id) {
-                    await getUserById(authUser.id); // Redux'ta currentUser set edilir
-                }
+                if (authUser?.id) await getUserById(authUser.id);
             } catch (e) {
                 console.error(e);
-                toast.error('Hesap bilgileri yüklenemedi');
+                toast.error('Hesap bilgileri yüklenemedi', { containerId: 'account-settings' });
             }
         })();
     }, [authUser?.id]);
 
-    // 🔹 currentUser güncellenince formu doldur
     useEffect(() => {
         if (currentUser) {
             setInitialValues({
@@ -73,12 +67,12 @@ const AccountSettings = () => {
         const f = e.target.files?.[0];
         if (!f) return;
         if (!['image/jpeg', 'image/png', 'image/webp'].includes(f.type)) {
-            toast.error('Sadece JPG/PNG/WEBP yükleyin');
+            toast.error('Sadece JPG/PNG/WEBP yükleyin', { containerId: 'account-settings' });
             e.target.value = '';
             return;
         }
         if (f.size > 2 * 1024 * 1024) {
-            toast.error('Maks 2MB');
+            toast.error('Maks 2MB', { containerId: 'account-settings' });
             e.target.value = '';
             return;
         }
@@ -88,6 +82,7 @@ const AccountSettings = () => {
     };
 
     const handleSubmit = async (values, { setSubmitting }) => {
+        const tId = toast.loading('Kaydediliyor...', { containerId: 'account-settings' });
         try {
             const fd = new FormData();
             fd.append('name', values.name);
@@ -98,12 +93,28 @@ const AccountSettings = () => {
             if (removePic) fd.append('remove_pic', '1');
             if (picFile) fd.append('pic', picFile);
 
-            const idToUpdate = currentUser?.id || authUser?.id; // güvence
+            const idToUpdate = currentUser?.id || authUser?.id;
             await updateUser(fd, idToUpdate);
-            toast.success('Hesap bilgileri güncellendi');
+            await getUserById(idToUpdate);
+
+            toast.update(tId, {
+                render: 'Hesap bilgileri başarıyla güncellendi ✅',
+                type: 'success',
+                isLoading: false,
+                autoClose: 2000,
+                closeOnClick: true,
+                containerId: 'account-settings',
+            });
         } catch (err) {
             console.error(err);
-            toast.error('Bilgiler güncellenemedi');
+            toast.update(tId, {
+                render: 'Güncelleme başarısız oldu ❌',
+                type: 'error',
+                isLoading: false,
+                autoClose: 3000,
+                closeOnClick: true,
+                containerId: 'account-settings',
+            });
         } finally {
             setSubmitting(false);
         }
@@ -126,7 +137,6 @@ const AccountSettings = () => {
         borderRadius: 6,
     };
 
-    // 🔹 İlk yüklemede basit bir loading durumu göster (opsiyonel)
     if (loading && !currentUser) {
         return (
             <Content>
@@ -135,6 +145,8 @@ const AccountSettings = () => {
                         <span className="visually-hidden">Yükleniyor...</span>
                     </div>
                 </div>
+                {/* Sayfaya özel toast container */}
+                <ToastContainer enableMultiContainer containerId="account-settings" position="top-right" />
             </Content>
         );
     }
@@ -228,6 +240,9 @@ const AccountSettings = () => {
                     </KTCardBody>
                 </KTCard>
             </div>
+
+            {/* Sayfaya özel toast container */}
+            <ToastContainer enableMultiContainer containerId="account-settings" position="top-right" />
         </Content>
     );
 };
