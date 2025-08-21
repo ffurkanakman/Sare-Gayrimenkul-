@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {PageTitle} from '../../../Libs/Metronic/_metronic/layout/core';
 import {ROUTES} from "../../../Libs/Routes/config.jsx";
-import {KTCard, KTCardBody} from "@/Libs/Metronic/_metronic/helpers/index.js";
+import {KTCard, KTCardBody} from "../../../Libs/Metronic/_metronic/helpers/index.js";
 import {Link} from "react-router-dom";
 import CustomerModal from './Modals/CustomerModal';
 import StatusChangeModal from './Modals/StatusChangeModal';
@@ -10,6 +10,9 @@ import {Spinner, Button, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import {toast} from 'react-toastify';
 import Swal from 'sweetalert2';
 import Pagination from '../../../Components/Pagination';
+
+// 👇 sadece bu import eklendi
+import useUser from '../../../ServerSide/Hooks/useUser';
 
 const usersBreadCrumbs = [
     {
@@ -32,6 +35,17 @@ const Content = () => {
         getMessagePreview,
         sendMessage
     } = useCustomer();
+
+    // 👇 sadece bu satırlar eklendi (users'ı almak için)
+    const { users, setUser: fetchAllUsers } = useUser();
+    useEffect(() => {
+        fetchAllUsers(); // users tablosunu 1 kez çek
+    }, []);
+    const usersById = useMemo(() => {
+        const map = new Map();
+        (users || []).forEach(u => map.set(Number(u.id), u));
+        return map;
+    }, [users]);
 
     const [showModal, setShowModal] = useState(false);
     const [showStatusModal, setShowStatusModal] = useState(false);
@@ -296,71 +310,119 @@ const Content = () => {
                             </tr>
                             </thead>
                             <tbody>
-                                {customersArray.map((customer, index) => (
-                                    <tr key={customer.id}>
-                                        <td>
+                            {customersArray.map((customer, index) => (
+                                <tr key={customer.id}>
+                                    <td>
                                             <span className='text-dark fw-bold text-hover-primary d-block fs-6'>
                                                 {paginationData?.from ? paginationData.from + index : index + 1}
                                             </span>
-                                        </td>
-                                        <td>
-                                            <div className='d-flex align-items-center'>
-                                                <div className='d-flex justify-content-start flex-column'>
+                                    </td>
+                                    <td>
+                                        <div className='d-flex align-items-center'>
+                                            <div className='d-flex justify-content-start flex-column'>
                                                     <span className='text-dark fw-bold text-hover-fsh-primary fs-6'>
                                                         {customer.name}
                                                     </span>
-                                                </div>
                                             </div>
-                                        </td>
-                                        <td>
+                                        </div>
+                                    </td>
+                                    <td>
                                             <span className='text-dark fw-bold text-hover-fsh-primary d-block fs-6'>
                                                 {customer.phone_number}
                                             </span>
-                                        </td>
-                                        <td>
+                                    </td>
+                                    <td>
                                             <span className='text-dark d-block fs-7'>
                                                 {customer.description || '-'}
                                             </span>
-                                        </td>
-                                        <td>
-                                            <div className="d-flex align-items-center">
-                                                <div className="symbol symbol-50px me-3">
-                                                    <img src={
-                                                        `${customer.pic || 'https://preview.keenthemes.com/metronic8/demo1/assets/media/avatars/300-2.jpg'}`
-                                                    }
-                                                         className="" alt=""/>
-                                                </div>
+                                    </td>
+                                    <td>
+                                        <div className="d-flex align-items-center">
+                                            <div className="symbol symbol-50px me-3">
+                                                {(() => {
+                                                    // 1) API’den gelen manager_info avatarları
+                                                    const avatarFromCustomer =
+                                                        // customer?.manager_info?.avatar_url ||
+                                                        // customer?.manager_info?.profile_photo_url ||
+                                                        customer?.manager_info?.pic;
 
+                                                    // 2) users tablosundan fallback (ID ile)
+                                                    const managerId =
+                                                        // customer?.manager_info?.id ||
+                                                        customer?.user_id;
+                                                    const managerUser =
+                                                        usersById.get(Number(managerId));
 
-                                                <div className="d-flex justify-content-start flex-column">
-                                                    <span className="text-gray-800 fw-bold text-hover-primary mb-1 fs-6"> {customer?.manager_info?.name} </span>
-                                                    <span
-                                                        className="text-gray-500 fw-semibold d-block fs-7">Sare Gayrimenkul</span>
-                                                </div>
+                                                    // users tarafında görsel "pic" alanında olabilir
+                                                    const avatarFromUsers =
+                                                        // managerUser?.avatar_url ||
+                                                        // managerUser?.profile_photo_url ||
+                                                        managerUser?.pic;
+
+                                                    const avatar =
+                                                        avatarFromCustomer ||
+                                                        avatarFromUsers ||
+                                                        'https://preview.keenthemes.com/metronic8/demo1/assets/media/avatars/300-2.jpg';
+
+                                                    return (
+                                                        <img
+                                                            src={avatar}
+                                                            className="rounded-circle object-fit-cover"
+                                                            alt="yetkili"
+                                                        />
+                                                    );
+                                                })()}
                                             </div>
-                                        </td>
-                                        <td>
-                                            <span className={`badge py-3 px-4 fs-7 ${customer.status.badge}`}> { customer.status.label }</span>
-                                        </td>
-                                        <td className='text-end'>
+
+                                            <div className="d-flex justify-content-start flex-column">
+                                                {(() => {
+                                                    // İsim için de users fallback'ı
+                                                    const managerId =
+                                                        // customer?.manager_info?.id ||
+                                                        customer?.user_id;
+                                                    const managerUser =
+                                                        usersById.get(Number(managerId));
+                                                    const managerName =
+                                                        // customer?.manager_info?.name ||
+                                                        managerUser?.name ||
+                                                        '-';
+
+                                                    return (
+                                                        <>
+                                                            <span className="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">
+                                                                {managerName}
+                                                            </span>
+                                                            <span className="text-gray-500 fw-semibold d-block fs-7">
+                                                                Sare Gayrimenkul
+                                                            </span>
+                                                        </>
+                                                    );
+                                                })()}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span className={`badge py-3 px-4 fs-7 ${customer.status.badge}`}> { customer.status.label }</span>
+                                    </td>
+                                    <td className='text-end'>
                                         <div className="d-flex justify-content-end">
-                                                <button
-                                                    onClick={() => handleShow(customer.id)}
-                                                    className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
-                                                    title='Düzenle'
-                                                >
-                                                    <i className='bi bi-pencil fs-4'></i>
-                                                </button>
-                                                <OverlayTrigger
-                                                    placement="top"
-                                                    overlay={
-                                                        <Tooltip id={`tooltip-message-${customer.id}`}>
-                                                            {sentMessages[customer.id]
-                                                                ? 'Bu müşteriye bugün mesaj gönderildi'
-                                                                : 'Mesaj Gönder'}
-                                                        </Tooltip>
-                                                    }
-                                                >
+                                            <button
+                                                onClick={() => handleShow(customer.id)}
+                                                className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1'
+                                                title='Düzenle'
+                                            >
+                                                <i className='bi bi-pencil fs-4'></i>
+                                            </button>
+                                            <OverlayTrigger
+                                                placement="top"
+                                                overlay={
+                                                    <Tooltip id={`tooltip-message-${customer.id}`}>
+                                                        {sentMessages[customer.id]
+                                                            ? 'Bu müşteriye bugün mesaj gönderildi'
+                                                            : 'Mesaj Gönder'}
+                                                    </Tooltip>
+                                                }
+                                            >
                                                     <span>
                                                         <button
                                                             onClick={() => handleSendMessage(customer.id)}
@@ -376,21 +438,20 @@ const Content = () => {
                                                             )}
                                                         </button>
                                                     </span>
-                                                </OverlayTrigger>
-                                                <button
-                                                    onClick={() => handleStatusShow(customer.id)}
-                                                    className='btn btn-icon btn-info btn-sm mx-1'
-                                                    title='Durumu Değiştir'
-                                                >
-                                                    <i className='bi bi-layers fs-4'></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
+                                            </OverlayTrigger>
+                                            <button
+                                                onClick={() => handleStatusShow(customer.id)}
+                                                className='btn btn-icon btn-info btn-sm mx-1'
+                                                title='Durumu Değiştir'
+                                            >
+                                                <i className='bi bi-layers fs-4'></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
                             </tbody>
                         </table>
-
 
                         {paginationData && (
                             <Pagination
@@ -405,14 +466,11 @@ const Content = () => {
                     </div>
                 )}
 
-
             </KTCardBody>
-
 
         </KTCard>
     )
 }
-
 
 const Customers = () => {
     return (
@@ -426,3 +484,4 @@ const Customers = () => {
 };
 
 export default Customers;
+
